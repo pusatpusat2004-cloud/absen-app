@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Jadwal Ngaji & Badalan</title>
+    <style>
+        :root {
+            --primary-color: #2e7d32;
+            --primary-light: #e8f5e9;
+            --accent-color: #f57c00;
+            --text-color: #333333;
+            --bg-color: #f4f6f8;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .table-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 20px;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+        }
+
+        .table-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: var(--primary-color);
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            font-size: 13px;
+            min-width: 800px;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: #555;
+            font-weight: 600;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        td {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fbfbfb;
+        }
+
+        td.left-align {
+            text-align: left;
+            font-weight: 500;
+            padding-left: 15px;
+        }
+
+        .input-cell {
+            width: 45px;
+            text-align: center;
+            border: 1px solid transparent;
+            background: transparent;
+            font-size: 13px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .input-cell:focus {
+            border: 1px solid var(--accent-color);
+            outline: none;
+            background-color: #fff;
+            border-radius: 4px;
+        }
+
+        .total-cell {
+            font-weight: bold;
+            color: #000;
+            background-color: #f1f3f4;
+        }
+
+        .badalan-section {
+            margin-top: 15px;
+            border-top: 2px dashed var(--border-color);
+            padding-top: 15px;
+        }
+
+        .badalan-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .badalan-row {
+            display: grid;
+            grid-template-columns: 80px 120px 1fr;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 8px;
+            background: #fff8f2;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .badalan-row span {
+            font-size: 13px;
+        }
+
+        .badalan-row input {
+            padding: 5px 8px;
+            font-size: 13px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        button {
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-save {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-save:hover {
+            background-color: #215d25;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Sistem Informasi Manajemen Jadwal Ngaji</h1>
+        <p>Aplikasi monitoring kehadiran khataman & badalan online</p>
+    </header>
+
+    <div class="container">
+
+        <!-- TABEL 1: Rumah Alm. Asan/Alex Bin Asip -->
+        <div class="table-card">
+            <div class="table-title">Jadwal Ngaji Rumah Alm. Asan / Alex Bin Asip</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th rowspan="2" style="width: 50px;">No</th>
+                        <th rowspan="2" style="width: 80px;">Waktu</th>
+                        <th rowspan="2">Nama</th>
+                        <th colspan="7">Malam Ke-</th>
+                        <th rowspan="2" style="width: 80px;">Total</th>
+                    </tr>
+                    <tr>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                        <th>5</th>
+                        <th>6</th>
+                        <th>7</th>
+                    </tr>
+                </thead>
+                <tbody id="table-asan">
+                    <tr>
+                        <td>1</td><td>19.00</td><td class="left-align">Alwi</td>
+                        <td><input type="text" class="input-cell" value="1"></td>
+                        <td><input type="text" class="input-cell" value="1"></td>
+                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td class="total-cell">0</td>
+                    </tr>
+                    <tr>
+                        <td>2</td><td>20.00</td><td class="left-align">Riziq</td>
+                        <td><input type="text" class="input-cell" value="1"></td>
+                        <td><input type="text" class="input-cell" value="x"></td>
+                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td class="total-cell">0</td>
+                    </tr>
+                    <tr>
+                        <td>3</td><td>21.00</td><td class="left-align">Sutrisna</td>
+                        <td><input type="text" class="input-cell" value="1"></td>
+                        <td><input type="text" class="input-cell" value="2"></td>
+                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td class="total-cell">0</td>
+                    </tr>
+                    <tr>
+                        <td>4</td><td>22.00</td><td class="left-align">Fajri</td>
+                        <td><input type="text" class="input-cell" value="1"></td>
+                        <td><input type="text" class="input-cell" value="1"></td>
+                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td class="total-cell">0</td>
+                    </tr>
+                    <tr>
+                        <td>5</td><td>23.00</td><td class="left-align">Baim</td>
+                        <td><input type="text" class="input-cell" value="1"></td>
+                        <td><input type="text" class="input-cell" value="1"></td>
+                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td class="total-cell">0</td>
+                    </tr>
+                    <tr>
+                        <td>6</td><td>00.00</td><td class="left-align">Hafidz</td>
+                        <td><input type="text" class="input-cell" value="2"></td>
+                        <td><input type="text" class="input-cell" value="1"></td>
+                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td class="total-cell">0</td>
+                    </tr>
+                    <tr>
+                        <td>7</td><td>01.00</td><td class="left-align">Arul</td>
+                        <td><input type="text" class="input-cell" value="x"></td>
+                        <td><input type="text" class="input-cell" value="1"></td>
+                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td class="total-cell">0</td>
+                    </tr>
+                    <tr>
+                        <td>8</td><td>02.00</td><td class="left-align">Faiz</td>
+                        <td><input type="text" class="input-cell" value="1"></td>
+                        <td><input type="text" class="input-cell" value="1"></td>
+                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td class="total-cell">0</td>
+                    </tr>
+                    <tr>
+                        <td>9</td><td>03.00</td><td class="left-align">Zuqi</td>
+                        <td><input type="text" class="input-cell" value="x"></td>
+                        <td><input type="text" class="input-cell" value="1"></td>
+                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td class="total-cell">0</td>
+                    </tr>
+                    <tr>
+                        <td>10</td><td>04.00</td><td class="left-align">Mas'ud</td>
+                        <td><input type="text" class="input-cell" value="2"></td>
+                        <td><input type="text" class="input-cell" value="1"></td>
+                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td class="total-cell">0</td>
+                    </tr>
+                    <tr>
+                        <td>11</td><td>05.00</td><td class="left-align">Fahri</td>
+                        <td><input type="text" class="input-cell" value="x"></td>
+                        <td><input type="text" class="input-cell" value="1"></td>
+                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td class="total-cell">0</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="badalan-section">
+                <div class="badalan-title">⚠️ Badalan</div>
+                <div class="badalan-row">
+                    <span>Ke - 1</span>
+                    <span>Jam 05.00</span>
+                    <input type="text" value="Reza Badalin Zuqi">
+                </div>
+            </div>
+        </div>
+
+        <!-- TABEL 2: Rumah Alm. Abdullamit Bin Deih -->
+        <div class="table-card">
+            <div class="table-title">Jadwal Ngaji Rumah Alm. Abdullamit Bin Deih</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th rowspan="2" style="width: 50px;">No</th>
+                        <th rowspan="2" style="width: 80px;">Waktu</th>
+                        <th rowspan="2">Nama</th>
+                        <th colspan="7">Malam Ke-</th>
+                        <th rowspan="2" style="width: 80px;">Total</th>
+                    </tr>
+                    <tr>
+                        <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th>
+                    </tr>
+                </thead>
+                <tbody id="table-abdullamit">
+                    <tr>
+                        <td>1</td><td>22.00</td><td class="left-align">Rehan</td>
+                        <td><input type="text" class="input-cell" value="1"></td>
+                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td class="total-cell">0</td>
+                    </tr>
+                    <tr>
+                        <td>2</td><td>23.00</td><td class="left-align">Atib</td>
+                        <td><input type="text" class="input-cell" value="1"></td>
+                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td class="total-cell">0</td>
+                    </tr>
+                    <tr>
+                        <td>3</td><td>00.00</td><td class="left-align">Faiz</td>
+                        <td><input type="text" class="input-cell" value="1"></td>
+                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td class="total-cell">0</td>
+                    </tr>
+                    <tr>
+                        <td>4</td><td>01.00</td><td class="left-align">Zuqi</td>
+                        <td><input type="text" class="input-cell" value="1"></td>
+                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td class="total-cell">0</td>
+                    </tr>
+                    <tr>
+                        <td>5</td><td>02.00</td><td class="left-align">Syauqi</td>
+                        <td><input type="text" class="input-cell" value="1"></td>
+                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td class="total-cell">0</td>
+                    </tr>
+                    <tr>
+                        <td>6</td><td>03.00</td><td class="left-align">Hafiz</td>
+                        <td><input type="text" class="input-cell" value="1"></td>
+                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td class="total-cell">0</td>
+                    </tr>
+                    <tr>
+                        <td>7</td><td>04.00</td><td class="left-align">Bang Adam</td>
+                        <td><input type="text" class="input-cell" value=""></td>
+                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td class="total-cell">0</td>
+                    </tr>
+                    <tr>
+                        <td>8</td><td>05.00</td><td class="left-align">Dede</td>
+                        <td><input type="text" class="input-cell" value=""></td>
+                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td class="total-cell">0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function hitungSemuaTotal() {
+            const tables = ['table-asan', 'table-abdullamit'];
+            tables.forEach(tableId => {
+                const tbody = document.getElementById(tableId);
+                const rows = tbody.getElementsByTagName('tr');
+                for (let row of rows) {
+                    const inputs = row.getElementsByClassName('input-cell');
+                    let total = 0;
+                    for (let input of inputs) {
+                        let val = input.value.trim().toLowerCase();
+                        if (!isNaN(val) && val !== '') {
+                            total += parseInt(val);
+                        }
+                    }
+                    const totalCell = row.getElementsByClassName('total-cell')[0];
+                    if (totalCell) { totalCell.textContent = total; }
+                }
+            });
+        }
+        window.onload = hitungSemuaTotal;
+        document.querySelectorAll('.input-cell').forEach(input => {
+            input.addEventListener('input', hitungSemuaTotal);
+        });
+    </script>
+</body>
+</html>
