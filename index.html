@@ -148,7 +148,6 @@
             text-transform: uppercase;
         }
 
-        /* Perbaikan: Mengubah layout menjadi flex agar kotak input bisa melebar penuh */
         .badalan-row {
             display: flex;
             align-items: center;
@@ -162,7 +161,7 @@
 
         .badalan-row span {
             font-size: 13px;
-            min-width: 50px; /* Menjaga agar tulisan 'Ke - X' tetap rapi */
+            min-width: 50px;
             font-weight: 600;
         }
 
@@ -171,7 +170,7 @@
             font-size: 13px;
             border: 1px solid var(--border-color);
             border-radius: 4px;
-            flex-grow: 1; /* Membuat kotak input mengambil sisa ruang yang kosong */
+            flex-grow: 1;
             width: 100%;
             background-color: #ffffff;
         }
@@ -186,13 +185,13 @@
 <body>
 
     <header>
-        <h1>Jadwal Ngaji</h1>
+        <h1>Sistem Informasi Manajemen Jadwal Ngaji</h1>
         <p>Aplikasi monitoring kehadiran khataman & badalan online</p>
     </header>
 
     <div class="container">
 
-        <!-- TABEL 1: Rumah Alm. Asan/Alex Bin Asip -->
+        <!-- TABEL 1: Rumah Alm. Asan -->
         <div class="table-card">
             <div class="table-title">Jadwal Ngaji Rumah Alm. Asan / Alex Bin Asip</div>
             <table>
@@ -211,68 +210,68 @@
                 <tbody id="table-asan">
                     <tr>
                         <td>1</td><td>19.00</td><td class="left-align">Alwi</td>
-                        <td><input type="text" class="input-cell" value="1"></td><td><input type="text" class="input-cell" value="1"></td>
-                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td><input type="text" class="input-cell" id="asan-1-1" value="1"></td><td><input type="text" class="input-cell" id="asan-1-2" value="1"></td>
+                        <td><input type="text" class="input-cell" id="asan-1-3" value=""></td><td><input type="text" class="input-cell" id="asan-1-4" value=""></td><td><input type="text" class="input-cell" id="asan-1-5" value=""></td><td><input type="text" class="input-cell" id="asan-1-6" value=""></td><td><input type="text" class="input-cell" id="asan-1-7" value=""></td>
                         <td class="total-cell">0</td>
                     </tr>
                     <tr>
                         <td>2</td><td>20.00</td><td class="left-align">Riziq</td>
-                        <td><input type="text" class="input-cell" value="1"></td><td><input type="text" class="input-cell" value="x"></td>
-                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td><input type="text" class="input-cell" id="asan-2-1" value="1"></td><td><input type="text" class="input-cell" id="asan-2-2" value="x"></td>
+                        <td><input type="text" class="input-cell" id="asan-2-3" value=""></td><td><input type="text" class="input-cell" id="asan-2-4" value=""></td><td><input type="text" class="input-cell" id="asan-2-5" value=""></td><td><input type="text" class="input-cell" id="asan-2-6" value=""></td><td><input type="text" class="input-cell" id="asan-2-7" value=""></td>
                         <td class="total-cell">0</td>
                     </tr>
                     <tr>
                         <td>3</td><td>21.00</td><td class="left-align">Sutrisna</td>
-                        <td><input type="text" class="input-cell" value="1"></td><td><input type="text" class="input-cell" value="2"></td>
-                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td><input type="text" class="input-cell" id="asan-3-1" value="1"></td><td><input type="text" class="input-cell" id="asan-3-2" value="2"></td>
+                        <td><input type="text" class="input-cell" id="asan-3-3" value=""></td><td><input type="text" class="input-cell" id="asan-3-4" value=""></td><td><input type="text" class="input-cell" id="asan-3-5" value=""></td><td><input type="text" class="input-cell" id="asan-3-6" value=""></td><td><input type="text" class="input-cell" id="asan-3-7" value=""></td>
                         <td class="total-cell">0</td>
                     </tr>
                     <tr>
                         <td>4</td><td>22.00</td><td class="left-align">Fajri</td>
-                        <td><input type="text" class="input-cell" value="1"></td><td><input type="text" class="input-cell" value="1"></td>
-                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td><input type="text" class="input-cell" id="asan-4-1" value="1"></td><td><input type="text" class="input-cell" id="asan-4-2" value="1"></td>
+                        <td><input type="text" class="input-cell" id="asan-4-3" value=""></td><td><input type="text" class="input-cell" id="asan-4-4" value=""></td><td><input type="text" class="input-cell" id="asan-4-5" value=""></td><td><input type="text" class="input-cell" id="asan-4-6" value=""></td><td><input type="text" class="input-cell" id="asan-4-7" value=""></td>
                         <td class="total-cell">0</td>
                     </tr>
                     <tr>
                         <td>5</td><td>23.00</td><td class="left-align">Baim</td>
-                        <td><input type="text" class="input-cell" value="1"></td><td><input type="text" class="input-cell" value="1"></td>
-                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td><input type="text" class="input-cell" id="asan-5-1" value="1"></td><td><input type="text" class="input-cell" id="asan-5-2" value="1"></td>
+                        <td><input type="text" class="input-cell" id="asan-5-3" value=""></td><td><input type="text" class="input-cell" id="asan-5-4" value=""></td><td><input type="text" class="input-cell" id="asan-5-5" value=""></td><td><input type="text" class="input-cell" id="asan-5-6" value=""></td><td><input type="text" class="input-cell" id="asan-5-7" value=""></td>
                         <td class="total-cell">0</td>
                     </tr>
                     <tr>
                         <td>6</td><td>00.00</td><td class="left-align">Hafidz</td>
-                        <td><input type="text" class="input-cell" value="2"></td><td><input type="text" class="input-cell" value="1"></td>
-                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td><input type="text" class="input-cell" id="asan-6-1" value="2"></td><td><input type="text" class="input-cell" id="asan-6-2" value="1"></td>
+                        <td><input type="text" class="input-cell" id="asan-6-3" value=""></td><td><input type="text" class="input-cell" id="asan-6-4" value=""></td><td><input type="text" class="input-cell" id="asan-6-5" value=""></td><td><input type="text" class="input-cell" id="asan-6-6" value=""></td><td><input type="text" class="input-cell" id="asan-6-7" value=""></td>
                         <td class="total-cell">0</td>
                     </tr>
                     <tr>
                         <td>7</td><td>01.00</td><td class="left-align">Arul</td>
-                        <td><input type="text" class="input-cell" value="x"></td><td><input type="text" class="input-cell" value="1"></td>
-                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td><input type="text" class="input-cell" id="asan-7-1" value="x"></td><td><input type="text" class="input-cell" id="asan-7-2" value="1"></td>
+                        <td><input type="text" class="input-cell" id="asan-7-3" value=""></td><td><input type="text" class="input-cell" id="asan-7-4" value=""></td><td><input type="text" class="input-cell" id="asan-7-5" value=""></td><td><input type="text" class="input-cell" id="asan-7-6" value=""></td><td><input type="text" class="input-cell" id="asan-7-7" value=""></td>
                         <td class="total-cell">0</td>
                     </tr>
                     <tr>
                         <td>8</td><td>02.00</td><td class="left-align">Faiz</td>
-                        <td><input type="text" class="input-cell" value="1"></td><td><input type="text" class="input-cell" value="1"></td>
-                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td><input type="text" class="input-cell" id="asan-8-1" value="1"></td><td><input type="text" class="input-cell" id="asan-8-2" value="1"></td>
+                        <td><input type="text" class="input-cell" id="asan-8-3" value=""></td><td><input type="text" class="input-cell" id="asan-8-4" value=""></td><td><input type="text" class="input-cell" id="asan-8-5" value=""></td><td><input type="text" class="input-cell" id="asan-8-6" value=""></td><td><input type="text" class="input-cell" id="asan-8-7" value=""></td>
                         <td class="total-cell">0</td>
                     </tr>
                     <tr>
                         <td>9</td><td>03.00</td><td class="left-align">Zuqi</td>
-                        <td><input type="text" class="input-cell" value="x"></td><td><input type="text" class="input-cell" value="1"></td>
-                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td><input type="text" class="input-cell" id="asan-9-1" value="x"></td><td><input type="text" class="input-cell" id="asan-9-2" value="1"></td>
+                        <td><input type="text" class="input-cell" id="asan-9-3" value=""></td><td><input type="text" class="input-cell" id="asan-9-4" value=""></td><td><input type="text" class="input-cell" id="asan-9-5" value=""></td><td><input type="text" class="input-cell" id="asan-9-6" value=""></td><td><input type="text" class="input-cell" id="asan-9-7" value=""></td>
                         <td class="total-cell">0</td>
                     </tr>
                     <tr>
                         <td>10</td><td>04.00</td><td class="left-align">Mas'ud</td>
-                        <td><input type="text" class="input-cell" value="2"></td><td><input type="text" class="input-cell" value="1"></td>
-                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td><input type="text" class="input-cell" id="asan-10-1" value="2"></td><td><input type="text" class="input-cell" id="asan-10-2" value="1"></td>
+                        <td><input type="text" class="input-cell" id="asan-10-3" value=""></td><td><input type="text" class="input-cell" id="asan-10-4" value=""></td><td><input type="text" class="input-cell" id="asan-10-5" value=""></td><td><input type="text" class="input-cell" id="asan-10-6" value=""></td><td><input type="text" class="input-cell" id="asan-10-7" value=""></td>
                         <td class="total-cell">0</td>
                     </tr>
                     <tr>
                         <td>11</td><td>05.00</td><td class="left-align">Fahri</td>
-                        <td><input type="text" class="input-cell" value="x"></td><td><input type="text" class="input-cell" value="1"></td>
-                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td><input type="text" class="input-cell" id="asan-11-1" value="x"></td><td><input type="text" class="input-cell" id="asan-11-2" value="1"></td>
+                        <td><input type="text" class="input-cell" id="asan-11-3" value=""></td><td><input type="text" class="input-cell" id="asan-11-4" value=""></td><td><input type="text" class="input-cell" id="asan-11-5" value=""></td><td><input type="text" class="input-cell" id="asan-11-6" value=""></td><td><input type="text" class="input-cell" id="asan-11-7" value=""></td>
                         <td class="total-cell">0</td>
                     </tr>
                 </tbody>
@@ -282,24 +281,24 @@
                 <div class="badalan-title">⚠️ Badalan</div>
                 <div class="badalan-row">
                     <span>Ke - 1</span>
-                    <input type="text" placeholder="Ketik waktu dan nama pembadal di sini...">
+                    <input type="text" id="badalan-asan-1" class="save-state" placeholder="Ketik waktu dan nama pembadal di sini...">
                 </div>
                 <div class="badalan-row">
                     <span>Ke - 2</span>
-                    <input type="text" placeholder="Ketik waktu dan nama pembadal di sini...">
+                    <input type="text" id="badalan-asan-2" class="save-state" placeholder="Ketik waktu dan nama pembadal di sini...">
                 </div>
                 <div class="badalan-row">
                     <span>Ke - 3</span>
-                    <input type="text" placeholder="Ketik waktu dan nama pembadal di sini...">
+                    <input type="text" id="badalan-asan-3" class="save-state" placeholder="Ketik waktu dan nama pembadal di sini...">
                 </div>
                 <div class="badalan-row">
                     <span>Ke - 4</span>
-                    <input type="text" placeholder="Ketik waktu dan nama pembadal di sini...">
+                    <input type="text" id="badalan-asan-4" class="save-state" placeholder="Ketik waktu dan nama pembadal di sini...">
                 </div>
             </div>
         </div>
 
-        <!-- TABEL 2: Rumah Alm. Abdullamit Bin Deih -->
+        <!-- TABEL 2: Rumah Alm. Abdullamit -->
         <div class="table-card">
             <div class="table-title">Jadwal Ngaji Rumah Alm. Abdullamit Bin Deih</div>
             <table>
@@ -318,50 +317,50 @@
                 <tbody id="table-abdullamit">
                     <tr>
                         <td>1</td><td>22.00</td><td class="left-align">Rehan</td>
-                        <td><input type="text" class="input-cell" value="1"></td>
-                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td><input type="text" class="input-cell" id="abdul-1-1" value="1"></td>
+                        <td><input type="text" class="input-cell" id="abdul-1-2" value=""></td><td><input type="text" class="input-cell" id="abdul-1-3" value=""></td><td><input type="text" class="input-cell" id="abdul-1-4" value=""></td><td><input type="text" class="input-cell" id="abdul-1-5" value=""></td><td><input type="text" class="input-cell" id="abdul-1-6" value=""></td><td><input type="text" class="input-cell" id="abdul-1-7" value=""></td>
                         <td class="total-cell">0</td>
                     </tr>
                     <tr>
                         <td>2</td><td>23.00</td><td class="left-align">Atib</td>
-                        <td><input type="text" class="input-cell" value="1"></td>
-                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td><input type="text" class="input-cell" id="abdul-2-1" value="1"></td>
+                        <td><input type="text" class="input-cell" id="abdul-2-2" value=""></td><td><input type="text" class="input-cell" id="abdul-2-3" value=""></td><td><input type="text" class="input-cell" id="abdul-2-4" value=""></td><td><input type="text" class="input-cell" id="abdul-2-5" value=""></td><td><input type="text" class="input-cell" id="abdul-2-6" value=""></td><td><input type="text" class="input-cell" id="abdul-2-7" value=""></td>
                         <td class="total-cell">0</td>
                     </tr>
                     <tr>
                         <td>3</td><td>00.00</td><td class="left-align">Faiz</td>
-                        <td><input type="text" class="input-cell" value="1"></td>
-                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td><input type="text" class="input-cell" id="abdul-3-1" value="1"></td>
+                        <td><input type="text" class="input-cell" id="abdul-3-2" value=""></td><td><input type="text" class="input-cell" id="abdul-3-3" value=""></td><td><input type="text" class="input-cell" id="abdul-3-4" value=""></td><td><input type="text" class="input-cell" id="abdul-3-5" value=""></td><td><input type="text" class="input-cell" id="abdul-3-6" value=""></td><td><input type="text" class="input-cell" id="abdul-3-7" value=""></td>
                         <td class="total-cell">0</td>
                     </tr>
                     <tr>
                         <td>4</td><td>01.00</td><td class="left-align">Zuqi</td>
-                        <td><input type="text" class="input-cell" value="1"></td>
-                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td><input type="text" class="input-cell" id="abdul-4-1" value="1"></td>
+                        <td><input type="text" class="input-cell" id="abdul-4-2" value=""></td><td><input type="text" class="input-cell" id="abdul-4-3" value=""></td><td><input type="text" class="input-cell" id="abdul-4-4" value=""></td><td><input type="text" class="input-cell" id="abdul-4-5" value=""></td><td><input type="text" class="input-cell" id="abdul-4-6" value=""></td><td><input type="text" class="input-cell" id="abdul-4-7" value=""></td>
                         <td class="total-cell">0</td>
                     </tr>
                     <tr>
                         <td>5</td><td>02.00</td><td class="left-align">Syauqi</td>
-                        <td><input type="text" class="input-cell" value="1"></td>
-                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td><input type="text" class="input-cell" id="abdul-5-1" value="1"></td>
+                        <td><input type="text" class="input-cell" id="abdul-5-2" value=""></td><td><input type="text" class="input-cell" id="abdul-5-3" value=""></td><td><input type="text" class="input-cell" id="abdul-5-4" value=""></td><td><input type="text" class="input-cell" id="abdul-5-5" value=""></td><td><input type="text" class="input-cell" id="abdul-5-6" value=""></td><td><input type="text" class="input-cell" id="abdul-5-7" value=""></td>
                         <td class="total-cell">0</td>
                     </tr>
                     <tr>
                         <td>6</td><td>03.00</td><td class="left-align">Hafiz</td>
-                        <td><input type="text" class="input-cell" value="1"></td>
-                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td><input type="text" class="input-cell" id="abdul-6-1" value="1"></td>
+                        <td><input type="text" class="input-cell" id="abdul-6-2" value=""></td><td><input type="text" class="input-cell" id="abdul-6-3" value=""></td><td><input type="text" class="input-cell" id="abdul-6-4" value=""></td><td><input type="text" class="input-cell" id="abdul-6-5" value=""></td><td><input type="text" class="input-cell" id="abdul-6-6" value=""></td><td><input type="text" class="input-cell" id="abdul-6-7" value=""></td>
                         <td class="total-cell">0</td>
                     </tr>
                     <tr>
                         <td>7</td><td>04.00</td><td class="left-align">Bang Adam</td>
-                        <td><input type="text" class="input-cell" value=""></td>
-                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td><input type="text" class="input-cell" id="abdul-7-1" value=""></td>
+                        <td><input type="text" class="input-cell" id="abdul-7-2" value=""></td><td><input type="text" class="input-cell" id="abdul-7-3" value=""></td><td><input type="text" class="input-cell" id="abdul-7-4" value=""></td><td><input type="text" class="input-cell" id="abdul-7-5" value=""></td><td><input type="text" class="input-cell" id="abdul-7-6" value=""></td><td><input type="text" class="input-cell" id="abdul-7-7" value=""></td>
                         <td class="total-cell">0</td>
                     </tr>
                     <tr>
                         <td>8</td><td>05.00</td><td class="left-align">Dede</td>
-                        <td><input type="text" class="input-cell" value=""></td>
-                        <td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td><td><input type="text" class="input-cell" value=""></td>
+                        <td><input type="text" class="input-cell" id="abdul-8-1" value=""></td>
+                        <td><input type="text" class="input-cell" id="abdul-8-2" value=""></td><td><input type="text" class="input-cell" id="abdul-8-3" value=""></td><td><input type="text" class="input-cell" id="abdul-8-4" value=""></td><td><input type="text" class="input-cell" id="abdul-8-5" value=""></td><td><input type="text" class="input-cell" id="abdul-8-6" value=""></td><td><input type="text" class="input-cell" id="abdul-8-7" value=""></td>
                         <td class="total-cell">0</td>
                     </tr>
                 </tbody>
@@ -371,17 +370,18 @@
                 <div class="badalan-title">⚠️ Badalan</div>
                 <div class="badalan-row">
                     <span>Ke - 1</span>
-                    <input type="text" placeholder="Ketik waktu dan nama pembadal di sini...">
+                    <input type="text" id="badalan-abdul-1" class="save-state" placeholder="Ketik waktu dan nama pembadal di sini...">
                 </div>
                 <div class="badalan-row">
                     <span>Ke - 2</span>
-                    <input type="text" placeholder="Ketik waktu dan nama pembadal di sini...">
+                    <input type="text" id="badalan-abdul-2" class="save-state" placeholder="Ketik waktu dan nama pembadal di sini...">
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+        // Fungsi menghitung total kehadiran secara otomatis
         function hitungSemuaTotal() {
             const tables = ['table-asan', 'table-abdullamit'];
             tables.forEach(tableId => {
@@ -401,9 +401,37 @@
                 }
             });
         }
-        window.onload = hitungSemuaTotal;
-        document.querySelectorAll('.input-cell').forEach(input => {
-            input.addEventListener('input', hitungSemuaTotal);
+
+        // Fungsi Menyimpan Data Ketikan ke Memori HP (LocalStorage)
+        function simpanData() {
+            const inputs = document.querySelectorAll('.input-cell, .save-state');
+            inputs.forEach(input => {
+                localStorage.setItem(input.id, input.value);
+            });
+        }
+
+        // Fungsi Memuat Kembali Data yang Pernah Diketik Saat Website Dibuka
+        function muatData() {
+            const inputs = document.querySelectorAll('.input-cell, .save-state');
+            inputs.forEach(input => {
+                const savedValue = localStorage.getItem(input.id);
+                // Jika ada data tersimpan di memori HP, masukkan nilainya ke dalam kolom input
+                if (savedValue !== null) {
+                    input.value = savedValue;
+                }
+            });
+            hitungSemuaTotal();
+        }
+
+        // Jalankan pemuatan memori saat halaman pertama kali dibuka
+        window.onload = muatData;
+
+        // Pasang event listener: Tiap ada ketikan baru di kolom mana pun, langsung otomatis tersimpan
+        document.querySelectorAll('.input-cell, .save-state').forEach(input => {
+            input.addEventListener('input', () => {
+                hitungSemuaTotal();
+                simpanData();
+            });
         });
     </script>
 </body>
