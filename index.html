@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aplikasi Jadwal Ngaji & Badalan</title>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <style>
         :root {
             --primary-color: #2e7d32;
@@ -13,6 +14,8 @@
             --bg-color: #f4f6f8;
             --card-bg: #ffffff;
             --border-color: #e0e0e0;
+            --wa-color: #25d366;
+            --excel-color: #107c41;
         }
 
         * {
@@ -55,6 +58,7 @@
             display: flex;
             flex-direction: column;
             gap: 30px;
+            margin-bottom: 40px;
         }
 
         .table-card {
@@ -180,20 +184,73 @@
             outline: none;
             box-shadow: 0 0 4px rgba(245, 124, 0, 0.2);
         }
+
+        /* Desain Khusus Tombol Fitur Baru */
+        .action-group {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-whatsapp {
+            background-color: var(--wa-color);
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #20ba5a;
+        }
+
+        .btn-excel {
+            background-color: var(--excel-color);
+        }
+
+        .btn-excel:hover {
+            background-color: #0e6b38;
+        }
+
+        /* Responsive Layout untuk Tombol di Laptop */
+        @media (min-width: 600px) {
+            .action-group {
+                flex-direction: row;
+            }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Jadwal Ngaji</h1>
-        <p>Aplikasi monitoring kehadiran ngajiin & badalan</p>
+        <h1>Sistem Informasi Manajemen Jadwal Ngaji</h1>
+        <p>Aplikasi monitoring kehadiran khataman & badalan online</p>
     </header>
 
     <div class="container">
 
-        <!-- TABEL 1: Rumah Alm. Asan -->
         <div class="table-card">
-            <div class="table-title">Jadwal Ngaji Rumah Alm. Asan / Alex Bin Asip</div>
+            <div class="table-title" id="title-asan">Jadwal Ngaji Rumah Alm. Asan / Alex Bin Asip</div>
             <table>
                 <thead>
                     <tr>
@@ -298,9 +355,8 @@
             </div>
         </div>
 
-        <!-- TABEL 2: Rumah Alm. Abdullamit -->
         <div class="table-card">
-            <div class="table-title">Jadwal Ngaji Rumah Alm. Abdullamit Bin Deih</div>
+            <div class="table-title" id="title-abdul">Jadwal Ngaji Rumah Alm. Abdullamit Bin Deih</div>
             <table>
                 <thead>
                     <tr>
@@ -380,8 +436,16 @@
         </div>
     </div>
 
+    <div class="action-group">
+        <button class="btn btn-whatsapp" onclick="shareKeWhatsApp()">
+            💬 Kirim Rekapan ke WhatsApp
+        </button>
+        <button class="btn btn-excel" onclick="downloadKeExcel()">
+            📊 Download File Excel (.xlsx)
+        </button>
+    </div>
+
     <script>
-        // Fungsi menghitung total kehadiran secara otomatis
         function hitungSemuaTotal() {
             const tables = ['table-asan', 'table-abdullamit'];
             tables.forEach(tableId => {
@@ -402,7 +466,6 @@
             });
         }
 
-        // Fungsi Menyimpan Data Ketikan ke Memori HP (LocalStorage)
         function simpanData() {
             const inputs = document.querySelectorAll('.input-cell, .save-state');
             inputs.forEach(input => {
@@ -410,12 +473,10 @@
             });
         }
 
-        // Fungsi Memuat Kembali Data yang Pernah Diketik Saat Website Dibuka
         function muatData() {
             const inputs = document.querySelectorAll('.input-cell, .save-state');
             inputs.forEach(input => {
                 const savedValue = localStorage.getItem(input.id);
-                // Jika ada data tersimpan di memori HP, masukkan nilainya ke dalam kolom input
                 if (savedValue !== null) {
                     input.value = savedValue;
                 }
@@ -423,10 +484,120 @@
             hitungSemuaTotal();
         }
 
-        // Jalankan pemuatan memori saat halaman pertama kali dibuka
+        // ================= FITUR BARU: SHARE WHATSAPP =================
+        function shareKeWhatsApp() {
+            let teks = "📝 *REKAPAN JADWAL NGAJI & BADALAN*\n\n";
+
+            // Proses Tabel 1
+            teks += `🏡 *${document.getElementById('title-asan').textContent}*\n`;
+            const rowsAsan = document.getElementById('table-asan').getElementsByTagName('tr');
+            for (let row of rowsAsan) {
+                let nama = row.cells[2].textContent;
+                let total = row.querySelector('.total-cell').textContent;
+                teks += `• ${nama}: *${total} khataman*\n`;
+            }
+            // Ambil Data Badalan Tabel 1
+            teks += "⚠️ _Badalan:_\n";
+            for(let i=1; i<=4; i++) {
+                let badalVal = document.getElementById(`badalan-asan-${i}`).value.trim();
+                if(badalVal) teks += `  - Ke-${i}: ${badalVal}\n`;
+            }
+
+            teks += "\n----------------------------------------\n\n";
+
+            // Proses Tabel 2
+            teks += `🏡 *${document.getElementById('title-abdul').textContent}*\n`;
+            const rowsAbdul = document.getElementById('table-abdullamit').getElementsByTagName('tr');
+            for (let row of rowsAbdul) {
+                let nama = row.cells[2].textContent;
+                let total = row.querySelector('.total-cell').textContent;
+                teks += `• ${nama}: *${total} khataman*\n`;
+            }
+            // Ambil Data Badalan Tabel 2
+            teks += "⚠️ _Badalan:_\n";
+            for(let i=1; i<=2; i++) {
+                let badalVal = document.getElementById(`badalan-abdul-${i}`).value.trim();
+                if(badalVal) teks += `  - Ke-${i}: ${badalVal}\n`;
+            }
+
+            // Membuka Link API WhatsApp
+            let urlWA = "https://api.whatsapp.com/send?text=" + encodeURIComponent(teks);
+            window.open(urlWA, '_blank');
+        }
+
+        // ================= FITUR BARU: DOWNLOAD EXCEL =================
+        function downloadKeExcel() {
+            // Membuat Workbook kosong baru
+            let wb = XLSX.utils.book_new();
+            
+            // --- Memproses Tabel 1 ---
+            let dataAsan = [
+                ["JADWAL NGAJI RUMAH ALM. ASAN / ALEX BIN ASIP"],
+                [],
+                ["No", "Waktu", "Nama", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "Total Kehadiran"]
+            ];
+            
+            const rowsAsan = document.getElementById('table-asan').getElementsByTagName('tr');
+            for(let row of rowsAsan) {
+                let rowData = [
+                    row.cells[0].textContent,
+                    row.cells[1].textContent,
+                    row.cells[2].textContent
+                ];
+                let inputs = row.getElementsByClassName('input-cell');
+                for(let input of inputs) {
+                    rowData.push(input.value);
+                }
+                rowData.push(row.querySelector('.total-cell').textContent);
+                dataAsan.push(rowData);
+            }
+            dataAsan.push([]);
+            dataAsan.push(["DATA BADALAN:"]);
+            for(let i=1; i<=4; i++) {
+                let val = document.getElementById(`badalan-asan-${i}`).value;
+                dataAsan.push([`Ke - ${i}`, "", val]);
+            }
+
+            let wsAsan = XLSX.utils.aoa_to_sheet(dataAsan);
+            XLSX.utils.book_append_sheet(wb, wsAsan, "Rumah Alm Asan");
+
+            // --- Memproses Tabel 2 ---
+            let dataAbdul = [
+                ["JADWAL NGAJI RUMAH ALM. ABDULLAMIT BIN DEIH"],
+                [],
+                ["No", "Waktu", "Nama", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "Total Kehadiran"]
+            ];
+            
+            const rowsAbdul = document.getElementById('table-abdullamit').getElementsByTagName('tr');
+            for(let row of rowsAbdul) {
+                let rowData = [
+                    row.cells[0].textContent,
+                    row.cells[1].textContent,
+                    row.cells[2].textContent
+                ];
+                let inputs = row.getElementsByClassName('input-cell');
+                for(let input of inputs) {
+                    rowData.push(input.value);
+                }
+                rowData.push(row.querySelector('.total-cell').textContent);
+                dataAbdul.push(rowData);
+            }
+            dataAbdul.push([]);
+            dataAbdul.push(["DATA BADALAN:"]);
+            for(let i=1; i<=2; i++) {
+                let val = document.getElementById(`badalan-abdul-${i}`).value;
+                dataAbdul.push([`Ke - ${i}`, "", val]);
+            }
+
+            let wsAbdul = XLSX.utils.aoa_to_sheet(dataAbdul);
+            XLSX.utils.book_append_sheet(wb, wsAbdul, "Rumah Alm Abdullamit");
+
+            // Unduh file hasil konversi ke komputer/HP
+            XLSX.writeFile(wb, "Rekap_Kehadiran_Ngaji.xlsx");
+        }
+
         window.onload = muatData;
 
-        // Pasang event listener: Tiap ada ketikan baru di kolom mana pun, langsung otomatis tersimpan
         document.querySelectorAll('.input-cell, .save-state').forEach(input => {
             input.addEventListener('input', () => {
                 hitungSemuaTotal();
