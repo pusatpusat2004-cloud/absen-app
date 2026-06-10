@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aplikasi Jadwal Ngaji & Badalan</title>
+    <!-- Library SheetJS untuk Excel -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <!-- Library html2canvas untuk mengubah tabel menjadi Gambar/Screenshot -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     <style>
         :root {
             --primary-color: #2e7d32;
@@ -13,7 +16,7 @@
             --text-color: #333333;
             --bg-color: #f4f6f8;
             --card-bg: #ffffff;
-            --border-color: #e0e0e0;
+            --border-color: #bbbbbb; /* Warna garis dibuat sedikit lebih tegas agar mirip Excel */
             --wa-color: #25d366;
             --excel-color: #107c41;
         }
@@ -52,13 +55,16 @@
             font-size: 14px;
         }
 
-        .container {
+        /* Area tangkapan gambar rekap */
+        #capture-area {
             width: 100%;
             max-width: 1100px;
             display: flex;
             flex-direction: column;
             gap: 30px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: var(--bg-color);
         }
 
         .table-card {
@@ -67,7 +73,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             padding: 20px;
             overflow-x: auto;
-            border: 1px solid var(--border-color);
+            border: 1px solid #cccccc;
         }
 
         .table-title {
@@ -82,31 +88,29 @@
             letter-spacing: 0.5px;
         }
 
+        /* STYLE STRUKTUR TABEL GRID MIRIP EXCEL */
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
             font-size: 13px;
             min-width: 800px;
+            border: 2px solid var(--border-color); /* Garis luar tabel utama */
         }
 
         th {
-            background-color: #f8f9fa;
-            color: #555;
-            font-weight: 600;
+            background-color: #f1f3f4; /* Warna abu khas header Excel */
+            color: #1b5e20;
+            font-weight: bold;
             padding: 10px;
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-color); /* Garis sekeliling header */
             text-align: center;
         }
 
         td {
-            padding: 10px;
-            border: 1px solid var(--border-color);
+            padding: 8px 10px;
+            border: 1px solid var(--border-color); /* Garis grid antar kolom & baris (Excel Style) */
             text-align: center;
-        }
-
-        tr:nth-child(even) {
-            background-color: #fbfbfb;
         }
 
         td.left-align {
@@ -116,31 +120,39 @@
         }
 
         .input-cell {
-            width: 45px;
+            width: 100%;
             text-align: center;
             border: 1px solid transparent;
             background: transparent;
             font-size: 13px;
             font-weight: bold;
             color: var(--primary-color);
+            padding: 4px 0;
         }
 
         .input-cell:focus {
             border: 1px solid var(--accent-color);
             outline: none;
             background-color: #fff;
-            border-radius: 4px;
+            border-radius: 2px;
+        }
+
+        /* Saat di-screenshot, teks pengganti input diberikan style padding yang pas */
+        .temp-text {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
         }
 
         .total-cell {
             font-weight: bold;
             color: #000;
-            background-color: #f1f3f4;
+            background-color: #f8f9fa;
         }
 
         .badalan-section {
             margin-top: 15px;
-            border-top: 2px dashed var(--border-color);
+            border-top: 2px dashed #cccccc;
             padding-top: 15px;
         }
 
@@ -172,7 +184,7 @@
         .badalan-row input {
             padding: 8px 12px;
             font-size: 13px;
-            border: 1px solid var(--border-color);
+            border: 1px solid #cccccc;
             border-radius: 4px;
             flex-grow: 1;
             width: 100%;
@@ -182,7 +194,6 @@
         .badalan-row input:focus {
             border-color: var(--accent-color);
             outline: none;
-            box-shadow: 0 0 4px rgba(245, 124, 0, 0.2);
         }
 
         .action-group {
@@ -245,10 +256,10 @@
         <p>Aplikasi monitoring kehadiran ngajian & badalan</p>
     </header>
 
-    <div class="container">
-
+    <div id="capture-area">
+        <!-- TABEL 1: Rumah Alm. Asan -->
         <div class="table-card">
-            <div class="table-title" id="title-asan">Jadwal Ngaji Rumah Alm. Asan / Alex Bin Asip</div>
+            <div class="table-title">Jadwal Ngaji Rumah Alm. Asan / Alex Bin Asip</div>
             <table>
                 <thead>
                     <tr>
@@ -336,25 +347,26 @@
                 <div class="badalan-title">⚠️ Badalan</div>
                 <div class="badalan-row">
                     <span>Ke - 1</span>
-                    <input type="text" id="badalan-asan-1" class="save-state" placeholder="Ketik waktu dan nama pembadal di sini...">
+                    <input type="text" id="badalan-asan-1" class="save-state" placeholder="Ketik waktu dan nama pembadal...">
                 </div>
                 <div class="badalan-row">
                     <span>Ke - 2</span>
-                    <input type="text" id="badalan-asan-2" class="save-state" placeholder="Ketik waktu dan nama pembadal di sini...">
+                    <input type="text" id="badalan-asan-2" class="save-state" placeholder="Ketik waktu dan nama pembadal...">
                 </div>
                 <div class="badalan-row">
                     <span>Ke - 3</span>
-                    <input type="text" id="badalan-asan-3" class="save-state" placeholder="Ketik waktu dan nama pembadal di sini...">
+                    <input type="text" id="badalan-asan-3" class="save-state" placeholder="Ketik waktu dan nama pembadal...">
                 </div>
                 <div class="badalan-row">
                     <span>Ke - 4</span>
-                    <input type="text" id="badalan-asan-4" class="save-state" placeholder="Ketik waktu dan nama pembadal di sini...">
+                    <input type="text" id="badalan-asan-4" class="save-state" placeholder="Ketik waktu dan nama pembadal...">
                 </div>
             </div>
         </div>
 
+        <!-- TABEL 2: Rumah Alm. Abdullamit -->
         <div class="table-card">
-            <div class="table-title" id="title-abdul">Jadwal Ngaji Rumah Alm. Abdullamit Bin Deih</div>
+            <div class="table-title">Jadwal Ngaji Rumah Alm. Abdullamit Bin Deih</div>
             <table>
                 <thead>
                     <tr>
@@ -424,19 +436,20 @@
                 <div class="badalan-title">⚠️ Badalan</div>
                 <div class="badalan-row">
                     <span>Ke - 1</span>
-                    <input type="text" id="badalan-abdul-1" class="save-state" placeholder="Ketik waktu dan nama pembadal di sini...">
+                    <input type="text" id="badalan-abdul-1" class="save-state" placeholder="Ketik waktu dan nama pembadal...">
                 </div>
                 <div class="badalan-row">
                     <span>Ke - 2</span>
-                    <input type="text" id="badalan-abdul-2" class="save-state" placeholder="Ketik waktu dan nama pembadal di sini...">
+                    <input type="text" id="badalan-abdul-2" class="save-state" placeholder="Ketik waktu dan nama pembadal...">
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- TOMBOL UTAMA -->
     <div class="action-group">
-        <button class="btn btn-whatsapp" onclick="shareKeWhatsApp()">
-            💬 Kirim Rekapan ke WhatsApp
+        <button class="btn btn-whatsapp" onclick="shareKeWhatsAppGambar()">
+            📸 Ambil Gambar & Kirim ke WhatsApp
         </button>
         <button class="btn btn-excel" onclick="downloadKeExcel()">
             📊 Download File Excel (.xlsx)
@@ -482,143 +495,88 @@
             hitungSemuaTotal();
         }
 
-        // ================= FITUR BARU: SHARE WHATSAPP FORMAT TABEL =================
-        function shareKeWhatsApp() {
-            let teks = "📝 *REKAPAN JADWAL NGAJI & BADALAN*\n\n";
-
-            // --- 1. PROSES TABEL 1 ---
-            teks += `🏡 *${document.getElementById('title-asan').textContent}*\n`;
-            teks += "```\n";
-            teks += "Nama     | M1| M2| M3| M4| M5| M6| M7| Tot\n";
-            teks += "---------|---|---|---|---|---|---|---|---\n";
+        function shareKeWhatsAppGambar() {
+            const target = document.getElementById('capture-area');
             
-            const rowsAsan = document.getElementById('table-asan').getElementsByTagName('tr');
-            for (let row of rowsAsan) {
-                let nama = row.cells[2].textContent.padEnd(8, ' ').substring(0, 8);
-                let inputs = row.getElementsByClassName('input-cell');
-                let isiMalam = "";
-                for (let input of inputs) {
-                    let val = input.value.trim() === "" ? " " : input.value.trim();
-                    isiMalam += val.padEnd(2, ' ') + "|";
+            // Konversi kolom input teks menjadi elemen text statis agar terlihat jelas di screenshot
+            const inputs = target.querySelectorAll('input');
+            inputs.forEach(input => {
+                let span = document.createElement('span');
+                span.className = 'temp-text';
+                span.textContent = input.value || "-";
+                span.style.fontWeight = 'bold';
+                span.style.fontSize = '13px';
+                if(input.classList.contains('input-cell')) {
+                    span.style.color = '#2e7d32';
+                } else {
+                    span.style.color = '#333333';
+                    span.style.textAlign = 'left';
+                    span.style.paddingLeft = '5px';
                 }
-                let total = row.querySelector('.total-cell').textContent.trim();
-                teks += `${nama} |${isiMalam}${total.padEnd(3, ' ')}\n`;
-            }
-            teks += "```\n";
-            
-            teks += "⚠️ *Badalan:*\n";
-            let adaBadalanAsan = false;
-            for(let i=1; i<=4; i++) {
-                let badalVal = document.getElementById(`badalan-asan-${i}`).value.trim();
-                if(badalVal) {
-                    teks += ` - Ke-${i}: ${badalVal}\n`;
-                    adaBadalanAsan = true;
-                }
-            }
-            if(!adaBadalanAsan) teks += " - (Tidak ada badalan)\n";
+                input.style.display = 'none';
+                input.parentNode.appendChild(span);
+            });
 
-            teks += "\n========================================\n\n";
+            // Proses pemotretan html2canvas
+            html2canvas(target, {
+                backgroundColor: "#f4f6f8",
+                logging: false,
+                useCORS: true,
+                scale: 2 // Skala dinaikkan ke 2 supaya gambar rekapannya tajam & tidak pecah di HP
+            }).then(canvas => {
+                // Kembalikan input seperti semula
+                target.querySelectorAll('.temp-text').forEach(el => el.remove());
+                inputs.forEach(input => input.style.display = 'inline-block');
 
-            // --- 2. PROSES TABEL 2 ---
-            teks += `🏡 *${document.getElementById('title-abdul').textContent}*\n`;
-            teks += "```\n";
-            teks += "Nama     | M1| M2| M3| M4| M5| M6| M7| Tot\n";
-            teks += "---------|---|---|---|---|---|---|---|---\n";
-            
-            const rowsAbdul = document.getElementById('table-abdullamit').getElementsByTagName('tr');
-            for (let row of rowsAbdul) {
-                let nama = row.cells[2].textContent.padEnd(8, ' ').substring(0, 8);
-                let inputs = row.getElementsByClassName('input-cell');
-                let isiMalam = "";
-                for (let input of inputs) {
-                    let val = input.value.trim() === "" ? " " : input.value.trim();
-                    isiMalam += val.padEnd(2, ' ') + "|";
-                }
-                let total = row.querySelector('.total-cell').textContent.trim();
-                teks += `${nama} |${isiMalam}${total.padEnd(3, ' ')}\n`;
-            }
-            teks += "```\n";
-            
-            teks += "⚠️ *Badalan:*\n";
-            let adaBadalanAbdul = false;
-            for(let i=1; i<=2; i++) {
-                let badalVal = document.getElementById(`badalan-abdul-${i}`).value.trim();
-                if(badalVal) {
-                    teks += ` - Ke-${i}: ${badalVal}\n`;
-                    adaBadalanAbdul = true;
-                }
-            }
-            if(!adaBadalanAbdul) teks += " - (Tidak ada badalan)\n";
+                // Otomatis download file gambar hasil rekap
+                const link = document.createElement('a');
+                link.download = 'Rekap_Jadwal_Ngaji_Grid.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
 
-            let urlWA = "https://api.whatsapp.com/send?text=" + encodeURIComponent(teks);
-            window.open(urlWA, '_blank');
+                alert("Gambar Rekapan Excel-Style Berhasil Diunduh!\n\nSilakan pilih grup di WhatsApp dan lampirkan file gambar 'Rekap_Jadwal_Ngaji_Grid.png' yang barusan terunduh.");
+
+                let teksPemberitahuan = "📝 *REKAPAN JADWAL NGAJI & BADALAN BARU*\n\nDetail kehadiran tabel malam 1-7 lengkap dengan format tabel kotak (Excel) ada pada gambar lampiran di bawah:";
+                window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(teksPemberitahuan), '_blank');
+            });
         }
 
-        // ================= FITUR BARU: DOWNLOAD EXCEL =================
         function downloadKeExcel() {
             let wb = XLSX.utils.book_new();
             
-            // --- Memproses Tabel 1 ---
             let dataAsan = [
                 ["JADWAL NGAJI RUMAH ALM. ASAN / ALEX BIN ASIP"],
                 [],
                 ["No", "Waktu", "Nama", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "Total Kehadiran"]
             ];
-            
             const rowsAsan = document.getElementById('table-asan').getElementsByTagName('tr');
             for(let row of rowsAsan) {
-                let rowData = [
-                    row.cells[0].textContent,
-                    row.cells[1].textContent,
-                    row.cells[2].textContent
-                ];
+                let rowData = [row.cells[0].textContent, row.cells[1].textContent, row.cells[2].textContent];
                 let inputs = row.getElementsByClassName('input-cell');
-                for(let input of inputs) {
-                    rowData.push(input.value);
-                }
+                for(let input of inputs) { rowData.push(input.value); }
                 rowData.push(row.querySelector('.total-cell').textContent);
                 dataAsan.push(rowData);
             }
-            dataAsan.push([]);
-            dataAsan.push(["DATA BADALAN:"]);
-            for(let i=1; i<=4; i++) {
-                let val = document.getElementById(`badalan-asan-${i}`).value;
-                dataAsan.push([`Ke - ${i}`, "", val]);
-            }
+            dataAsan.push([]); dataAsan.push(["DATA BADALAN:"]);
+            for(let i=1; i<=4; i++) { dataAsan.push([`Ke - ${i}`, "", document.getElementById(`badalan-asan-${i}`).value]); }
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(dataAsan), "Rumah Alm Asan");
 
-            let wsAsan = XLSX.utils.aoa_to_sheet(dataAsan);
-            XLSX.utils.book_append_sheet(wb, wsAsan, "Rumah Alm Asan");
-
-            // --- Memproses Tabel 2 ---
             let dataAbdul = [
                 ["JADWAL NGAJI RUMAH ALM. ABDULLAMIT BIN DEIH"],
                 [],
                 ["No", "Waktu", "Nama", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "Total Kehadiran"]
             ];
-            
             const rowsAbdul = document.getElementById('table-abdullamit').getElementsByTagName('tr');
             for(let row of rowsAbdul) {
-                let rowData = [
-                    row.cells[0].textContent,
-                    row.cells[1].textContent,
-                    row.cells[2].textContent
-                ];
+                let rowData = [row.cells[0].textContent, row.cells[1].textContent, row.cells[2].textContent];
                 let inputs = row.getElementsByClassName('input-cell');
-                for(let input of inputs) {
-                    rowData.push(input.value);
-                }
+                for(let input of inputs) { rowData.push(input.value); }
                 rowData.push(row.querySelector('.total-cell').textContent);
                 dataAbdul.push(rowData);
             }
-            dataAbdul.push([]);
-            dataAbdul.push(["DATA BADALAN:"]);
-            for(let i=1; i<=2; i++) {
-                let val = document.getElementById(`badalan-abdul-${i}`).value;
-                dataAbdul.push([`Ke - ${i}`, "", val]);
-            }
-
-            let wsAbdul = XLSX.utils.aoa_to_sheet(dataAbdul);
-            XLSX.utils.book_append_sheet(wb, wsAbdul, "Rumah Alm Abdullamit");
+            dataAbdul.push([]); dataAbdul.push(["DATA BADALAN:"]);
+            for(let i=1; i<=2; i++) { dataAbdul.push([`Ke - ${i}`, "", document.getElementById(`badalan-abdul-${i}`).value]); }
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(dataAbdul), "Rumah Alm Abdullamit");
 
             XLSX.writeFile(wb, "Rekap_Kehadiran_Ngaji.xlsx");
         }
