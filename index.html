@@ -8,6 +8,7 @@ function shareKeWhatsApp() {
         teks += "---------|---|---|---|---|---|---|---|---\n";
         const rowsAsan = document.getElementById('table-asan').getElementsByTagName('tr');
         for (let row of rowsAsan) {
+            // Memastikan baris tersebut adalah baris data jamaah, bukan header atau baris kosong
             if (row.cells && row.cells.length > 2 && row.querySelector('.input-cell')) {
                 let nama = row.cells[2].textContent.trim().padEnd(8, ' ').substring(0, 8);
                 let inputs = row.getElementsByClassName('input-cell');
@@ -17,14 +18,15 @@ function shareKeWhatsApp() {
                     val = (val === "" || val === "?") ? " " : val;
                     isiMalam += val.padEnd(2, ' ') + "|";
                 }
-                let total = row.querySelector('.total-cell') ? row.querySelector('.total-cell').textContent.trim() : "0";
+                let totalEl = row.querySelector('.total-cell');
+                let total = totalEl ? totalEl.textContent.trim() : "0";
                 teks += `${nama} |${isiMalam}${total.padEnd(3, ' ')}\n`;
             }
         }
         teks += "```\n";
         
         let adaBadalanAsan = false;
-        for (let i = 1; i <= 2; i++) {
+        for (let i = 1; i <= 7; i++) { // Disesuaikan sampai 7 slot sesuai tampilan rekap fix Anda
             let badalEl = document.getElementById(`badalan-asan-${i}`);
             if (badalEl) {
                 let badalVal = badalEl.value.trim();
@@ -57,14 +59,15 @@ function shareKeWhatsApp() {
                     val = (val === "" || val === "?") ? " " : val;
                     isiMalam += val.padEnd(2, ' ') + "|";
                 }
-                let total = row.querySelector('.total-cell') ? row.querySelector('.total-cell').textContent.trim() : "0";
+                let totalEl = row.querySelector('.total-cell');
+                let total = totalEl ? totalEl.textContent.trim() : "0";
                 teks += `${nama} |${isiMalam}${total.padEnd(3, ' ')}\n`;
             }
         }
         teks += "```\n";
         
         let adaBadalanAbdul = false;
-        for (let i = 1; i <= 2; i++) {
+        for (let i = 1; i <= 7; i++) {
             let badalEl = document.getElementById(`badalan-abdul-${i}`);
             if (badalEl) {
                 let badalVal = badalEl.value.trim();
@@ -97,14 +100,15 @@ function shareKeWhatsApp() {
                     val = (val === "" || val === "?") ? " " : val;
                     isiMalam += val.padEnd(2, ' ') + "|";
                 }
-                let total = row.querySelector('.total-cell') ? row.querySelector('.total-cell').textContent.trim() : "0";
+                let totalEl = row.querySelector('.total-cell');
+                let total = totalEl ? totalEl.textContent.trim() : "0";
                 teks += `${nama} |${isiMalam}${total.padEnd(3, ' ')}\n`;
             }
         }
         teks += "```\n";
         
         let adaBadalanMadsani = false;
-        for (let i = 1; i <= 2; i++) {
+        for (let i = 1; i <= 7; i++) {
             let badalEl = document.getElementById(`badalan-madsani-${i}`);
             if (badalEl) {
                 let badalVal = badalEl.value.trim();
