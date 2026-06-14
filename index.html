@@ -1,339 +1,45 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Rekap Jadwal Ngaji v4</title>
-    <style>
-        :root {
-            --primary-green: #1b5e20;
-            --light-green: #e8f5e9;
-            --accent-orange: #e65100;
-            --bg-gray: #f5f5f5;
-            --border-gray: #b0bec5;
-            --text-dark: #212121;
+// --- 3. PROSES TABEL 3 (RUMAH ALM. MADSANI BIN UMAR) ---
+if (document.getElementById('table-madsani')) {
+    teks += `\n*${document.getElementById('title-madsani').textContent}*\n`;
+    teks += "```\nNama  | M1| M2| M3| M4| M5| M6| M7| Tot\n";
+    teks += "---------------------------------------\n```";
+    
+    const rowsMadsani = document.getElementById('table-madsani').getElementsByTagName('tr');
+    for (let row of rowsMadsani) {
+        // Pastikan baris memiliki data nama (misal di cell indeks ke-2)
+        if (row.cells[2]) {
+            let nama = row.cells[2].textContent.padEnd(6, ' ').substring(0, 6);
+            let inputs = row.getElementsByClassName('input-cell');
+            let isiMalam = "";
+            
+            for (let input of inputs) {
+                let val = input.value.trim();
+                val = (val === "" || val === "?") ? " " : val;
+                isiMalam += val.padEnd(2, ' ') + "|";
+            }
+            
+            let total = row.querySelector('.total-cell') ? row.querySelector('.total-cell').textContent.trim() : "0";
+            teks += `\n\`${nama} |${isiMalam}${total.padEnd(3, ' ')}\``;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-gray);
-            color: var(--text-dark);
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 900px;
-            background: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            text-align: center;
-            font-size: 20px;
-            color: var(--primary-green);
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-
-        .subtitle {
-            text-align: center;
-            font-size: 13px;
-            color: #555;
-            margin-bottom: 25px;
-        }
-
-        .section-header {
-            background-color: #37474f;
-            color: white;
-            padding: 8px 12px;
-            font-size: 14px;
-            font-weight: bold;
-            border-radius: 4px;
-            margin: 20px 0 10px 0;
-            letter-spacing: 0.5px;
-        }
-
-        .section-header.absen {
-            background-color: var(--primary-green);
-        }
-
-        .section-header.khusus {
-            background-color: #1565c0;
-        }
-
-        .table-title {
-            font-size: 13px;
-            font-weight: bold;
-            background-color: #f1f3f4;
-            padding: 8px;
-            border-left: 4px solid #555;
-            margin-bottom: 8px;
-            margin-top: 15px;
-        }
-
-        .table-container {
-            width: 100%;
-            overflow-x: auto;
-            margin-bottom: 10px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-            text-align: center;
-        }
-
-        th, td {
-            border: 1px solid var(--border-gray);
-            padding: 6px 4px;
-            height: 30px;
-        }
-
-        th {
-            background-color: #fafafa;
-            font-weight: bold;
-            color: #333;
-        }
-
-        td input[type="text"] {
-            width: 100%;
-            height: 100%;
-            border: none;
-            text-align: center;
-            font-size: 12px;
-            font-weight: bold;
-            background: transparent;
-        }
-
-        td input[type="text"]:focus {
-            background-color: #fffde7;
-            outline: 1px solid var(--accent-orange);
-        }
-
-        .nama-col {
-            text-align: left;
-            padding-left: 8px;
-            font-weight: bold;
-            width: 130px;
-        }
-
-        .total-col {
-            background-color: #f5f5f5;
-            font-weight: bold;
-            width: 50px;
-        }
-
-        .badalan-box {
-            background-color: #fff3e0;
-            border: 1px solid #ffe0b2;
-            border-radius: 4px;
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 20px;
-        }
-
-        .badalan-title {
-            font-size: 11px;
-            font-weight: bold;
-            color: var(--accent-orange);
-            margin-bottom: 6px;
-            text-transform: uppercase;
-        }
-
-        .badalan-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 8px;
-        }
-
-        @media(max-width: 600px) {
-            .badalan-grid {
-                grid-template-columns: 1fr;
+    }
+    teks += "\n";
+    
+    // Ambil Data Badalan Tabel 3 jika ada
+    let adaBadalanMadsani = false;
+    // Asumsi maksimal ada 2 slot badalan seperti tabel lainnya
+    for (let i = 1; i <= 2; i++) {
+        let badalEl = document.getElementById(`badalan-madsani-${i}`);
+        if (badalEl) {
+            let badalVal = badalEl.value.trim();
+            if (badalVal) {
+                if (!adaBadalanMadsani) {
+                    teks += "\n*⚠️ Badalan:*\n";
+                    adaBadalanMadsani = true;
+                }
+                teks += `- Ke-${i}: ${badalVal}\n`;
             }
         }
-
-        .badalan-item {
-            display: flex;
-            align-items: center;
-            font-size: 11px;
-        }
-
-        .badalan-item span {
-            width: 45px;
-            font-weight: bold;
-        }
-
-        .badalan-item input {
-            flex: 1;
-            padding: 4px;
-            border: 1px solid var(--border-gray);
-            border-radius: 3px;
-            font-size: 11px;
-        }
-
-        select.status-select {
-            width: 95%;
-            padding: 3px;
-            font-size: 11px;
-            font-weight: bold;
-            border-radius: 3px;
-            border: 1px solid var(--border-gray);
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-            width: 100%;
-            max-width: 900px;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 12px;
-            font-size: 13px;
-            font-weight: bold;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .btn-wa { background-color: #25d366; }
-        .btn-xl { background-color: #107c41; }
-        .btn:hover { opacity: 0.9; }
-
-        /* Mode Cetak Screenshot */
-        .mode-screenshot .table-container {
-            overflow-x: visible !important;
-        }
-        .mode-screenshot table {
-            width: 100% !important;
-            min-width: 100% !important;
-        }
-    </style>
-    <!-- Libs -->
-    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-</head>
-<body>
-
-    <div class="container" id="main-capture">
-        <h1>SISTEM MANAJEMEN JADWAL NGAJI</h1>
-        <div class="subtitle">Monitoring Kehadiran Rutin & Jadwal Agenda Khusus</div>
-
-        <!-- ================= BAGIAN 1: ABSENSI BERKALA ================= -->
-        <div class="section-header absen">🟢 BAGIAN I: REKAP ABSENSI BERKALA (7 MALAM)</div>
-
-        <!-- LOKASI 1 -->
-        <div class="table-title">Lokasi 1: Rumah Alm. Asan / Alex Bin Asip</div>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th rowspan="2" style="width: 30px;">No</th>
-                        <th rowspan="2" style="width: 50px;">Waktu</th>
-                        <th rowspan="2">Nama</th>
-                        <th colspan="7">Malam Ke-</th>
-                        <th rowspan="2" class="total-col">Total</th>
-                    </tr>
-                    <tr>
-                        <th style="width: 35px;">1</th>
-                        <th style="width: 35px;">2</th>
-                        <th style="width: 35px;">3</th>
-                        <th style="width: 35px;">4</th>
-                        <th style="width: 35px;">5</th>
-                        <th style="width: 35px;">6</th>
-                        <th style="width: 35px;">7</th>
-                    </tr>
-                </thead>
-                <tbody id="body-asan">
-                    <tr><td>1</td><td>19.00</td><td class="nama-col">Alwi</td><td><input type="text" class="asan-in" id="as-1-1" value="1"></td><td><input type="text" class="asan-in" id="as-1-2" value="1"></td><td><input type="text" class="asan-in" id="as-1-3"></td><td><input type="text" class="asan-in" id="as-1-4"></td><td><input type="text" class="asan-in" id="as-1-5"></td><td><input type="text" class="asan-in" id="as-1-6"></td><td><input type="text" class="asan-in" id="as-1-7"></td><td class="total-col" id="as-tot-1">0</td></tr>
-                    <tr><td>2</td><td>20.00</td><td class="nama-col">Riziq</td><td><input type="text" class="asan-in" id="as-2-1" value="1"></td><td><input type="text" class="asan-in" id="as-2-2" value="x"></td><td><input type="text" class="asan-in" id="as-2-3"></td><td><input type="text" class="asan-in" id="as-2-4"></td><td><input type="text" class="asan-in" id="as-2-5"></td><td><input type="text" class="asan-in" id="as-2-6"></td><td><input type="text" class="asan-in" id="as-2-7"></td><td class="total-col" id="as-tot-2">0</td></tr>
-                    <tr><td>3</td><td>21.00</td><td class="nama-col">Sutrisna</td><td><input type="text" class="asan-in" id="as-3-1" value="1"></td><td><input type="text" class="asan-in" id="as-3-2" value="2"></td><td><input type="text" class="asan-in" id="as-3-3"></td><td><input type="text" class="asan-in" id="as-3-4"></td><td><input type="text" class="asan-in" id="as-3-5"></td><td><input type="text" class="asan-in" id="as-3-6"></td><td><input type="text" class="asan-in" id="as-3-7"></td><td class="total-col" id="as-tot-3">0</td></tr>
-                    <tr><td>4</td><td>22.00</td><td class="nama-col">Fajri</td><td><input type="text" class="asan-in" id="as-4-1" value="1"></td><td><input type="text" class="asan-in" id="as-4-2" value="1"></td><td><input type="text" class="asan-in" id="as-4-3"></td><td><input type="text" class="asan-in" id="as-4-4"></td><td><input type="text" class="asan-in" id="as-4-5"></td><td><input type="text" class="asan-in" id="as-4-6"></td><td><input type="text" class="asan-in" id="as-4-7"></td><td class="total-col" id="as-tot-4">0</td></tr>
-                    <tr><td>5</td><td>23.00</td><td class="nama-col">Baim</td><td><input type="text" class="asan-in" id="as-5-1" value="1"></td><td><input type="text" class="asan-in" id="as-5-2" value="1"></td><td><input type="text" class="asan-in" id="as-5-3"></td><td><input type="text" class="asan-in" id="as-5-4"></td><td><input type="text" class="asan-in" id="as-5-5"></td><td><input type="text" class="asan-in" id="as-5-6"></td><td><input type="text" class="asan-in" id="as-5-7"></td><td class="total-col" id="as-tot-5">0</td></tr>
-                    <tr><td>6</td><td>00.00</td><td class="nama-col">Hafidz</td><td><input type="text" class="asan-in" id="as-6-1" value="2"></td><td><input type="text" class="asan-in" id="as-6-2" value="1"></td><td><input type="text" class="asan-in" id="as-6-3"></td><td><input type="text" class="asan-in" id="as-6-4"></td><td><input type="text" class="asan-in" id="as-6-5"></td><td><input type="text" class="asan-in" id="as-6-6"></td><td><input type="text" class="asan-in" id="as-6-7"></td><td class="total-col" id="as-tot-6">0</td></tr>
-                    <tr><td>7</td><td>01.00</td><td class="nama-col">Arul</td><td><input type="text" class="asan-in" id="as-7-1" value="x"></td><td><input type="text" class="asan-in" id="as-7-2" value="1"></td><td><input type="text" class="asan-in" id="as-7-3"></td><td><input type="text" class="asan-in" id="as-7-4"></td><td><input type="text" class="asan-in" id="as-7-5"></td><td><input type="text" class="asan-in" id="as-7-6"></td><td><input type="text" class="asan-in" id="as-7-7"></td><td class="total-col" id="as-tot-7">0</td></tr>
-                    <tr><td>8</td><td>02.00</td><td class="nama-col">Faiz</td><td><input type="text" class="asan-in" id="as-8-1" value="1"></td><td><input type="text" class="asan-in" id="as-8-2" value="1"></td><td><input type="text" class="asan-in" id="as-8-3"></td><td><input type="text" class="asan-in" id="as-8-4"></td><td><input type="text" class="asan-in" id="as-8-5"></td><td><input type="text" class="asan-in" id="as-8-6"></td><td><input type="text" class="asan-in" id="as-8-7"></td><td class="total-col" id="as-tot-8">0</td></tr>
-                    <tr><td>9</td><td>03.00</td><td class="nama-col">Zuqi</td><td><input type="text" class="asan-in" id="as-9-1" value="x"></td><td><input type="text" class="asan-in" id="as-9-2" value="1"></td><td><input type="text" class="asan-in" id="as-9-3"></td><td><input type="text" class="asan-in" id="as-9-4"></td><td><input type="text" class="asan-in" id="as-9-5"></td><td><input type="text" class="asan-in" id="as-9-6"></td><td><input type="text" class="asan-in" id="as-9-7"></td><td class="total-col" id="as-tot-9">0</td></tr>
-                    <tr><td>10</td><td>04.00</td><td class="nama-col">Mas'ud</td><td><input type="text" class="asan-in" id="as-10-1" value="2"></td><td><input type="text" class="asan-in" id="as-10-2" value="1"></td><td><input type="text" class="asan-in" id="as-10-3"></td><td><input type="text" class="asan-in" id="as-10-4"></td><td><input type="text" class="asan-in" id="as-10-5"></td><td><input type="text" class="asan-in" id="as-10-6"></td><td><input type="text" class="asan-in" id="as-10-7"></td><td class="total-col" id="as-tot-10">0</td></tr>
-                    <tr><td>11</td><td>05.00</td><td class="nama-col">Fahri</td><td><input type="text" class="asan-in" id="as-11-1" value="x"></td><td><input type="text" class="asan-in" id="as-11-2" value="1"></td><td><input type="text" class="asan-in" id="as-11-3"></td><td><input type="text" class="asan-in" id="as-11-4"></td><td><input type="text" class="asan-in" id="as-11-5"></td><td><input type="text" class="asan-in" id="as-11-6"></td><td><input type="text" class="asan-in" id="as-11-7"></td><td class="total-col" id="as-tot-11">0</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="badalan-box">
-            <div class="badalan-title">⚠️ Badalan Lokasi 1 (Rumah Asan)</div>
-            <div class="badalan-grid">
-                <div class="badalan-item"><span>Ke - 1 :</span><input type="text" id="bad-as-1" value="Pesa Badalin Zuqi"></div>
-                <div class="badalan-item"><span>Ke - 2 :</span><input type="text" id="bad-as-2" value="-"></div>
-                <div class="badalan-item"><span>Ke - 3 :</span><input type="text" id="bad-as-3" value="Pesa Badalin Fajri"></div>
-                <div class="badalan-item"><span>Ke - 4 :</span><input type="text" id="bad-as-4" value="-"></div>
-            </div>
-        </div>
-
-        <!-- LOKASI 2 -->
-        <div class="table-title">Lokasi 2: Rumah Alm. Abdullamit Bin Deih</div>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th rowspan="2" style="width: 30px;">No</th>
-                        <th rowspan="2" style="width: 50px;">Waktu</th>
-                        <th rowspan="2">Nama</th>
-                        <th colspan="7">Malam Ke-</th>
-                        <th rowspan="2" class="total-col">Total</th>
-                    </tr>
-                    <tr>
-                        <th style="width: 35px;">1</th>
-                        <th style="width: 35px;">2</th>
-                        <th style="width: 35px;">3</th>
-                        <th style="width: 35px;">4</th>
-                        <th style="width: 35px;">5</th>
-                        <th style="width: 35px;">6</th>
-                        <th style="width: 35px;">7</th>
-                    </tr>
-                </thead>
-                <tbody id="body-abdul">
-                    <tr><td>1</td><td>22.00</td><td class="nama-col">Rehan</td><td><input type="text" class="abdul-in" id="ab-1-1" value="1"></td><td><input type="text" class="abdul-in" id="ab-1-2"></td><td><input type="text" class="abdul-in" id="ab-1-3"></td><td><input type="text" class="abdul-in" id="ab-1-4"></td><td><input type="text" class="abdul-in" id="ab-1-5"></td><td><input type="text" class="abdul-in" id="ab-1-6"></td><td><input type="text" class="abdul-in" id="ab-1-7"></td><td class="total-col" id="ab-tot-1">0</td></tr>
-                    <tr><td>2</td><td>23.00</td><td class="nama-col">Atib</td><td><input type="text" class="abdul-in" id="ab-2-1" value="1"></td><td><input type="text" class="abdul-in" id="ab-2-2"></td><td><input type="text" class="abdul-in" id="ab-2-3"></td><td><input type="text" class="abdul-in" id="ab-2-4"></td><td><input type="text" class="abdul-in" id="ab-2-5"></td><td><input type="text" class="abdul-in" id="ab-2-6"></td><td><input type="text" class="abdul-in" id="ab-2-7"></td><td class="total-col" id="ab-tot-2">0</td></tr>
-                    <tr><td>3</td><td>00.00</td><td class="nama-col">Faiz</td><td><input type="text" class="abdul-in" id="ab-3-1" value="1"></td><td><input type="text" class="abdul-in" id="ab-3-2"></td><td><input type="text" class="abdul-in" id="ab-3-3"></td><td><input type="text" class="abdul-in" id="ab-3-4"></td><td><input type="text" class="abdul-in" id="ab-3-5"></td><td><input type="text" class="abdul-in" id="ab-3-6"></td><td><input type="text" class="abdul-in" id="ab-3-7"></td><td class="total-col" id="ab-tot-3">0</td></tr>
-                    <tr><td>4</td><td>01.00</td><td class="nama-col">Zuqi</td><td><input type="text" class="abdul-in" id="ab-4-1" value="1"></td><td><input type="text" class="abdul-in" id="ab-4-2"></td><td><input type="text" class="abdul-in" id="ab-4-3"></td><td><input type="text" class="abdul-in" id="ab-4-4"></td><td><input type="text" class="abdul-in" id="ab-4-5"></td><td><input type="text" class="abdul-in" id="ab-4-6"></td><td><input type="text" class="abdul-in" id="ab-4-7"></td><td class="total-col" id="ab-tot-4">0</td></tr>
-                    <tr><td>5</td><td>02.00</td><td class="nama-col">Syauqi</td><td><input type="text" class="abdul-in" id="ab-5-1" value="1"></td><td><input type="text" class="abdul-in" id="ab-5-2"></td><td><input type="text" class="abdul-in" id="ab-5-3"></td><td><input type="text" class="abdul-in" id="ab-5-4"></td><td><input type="text" class="abdul-in" id="ab-5-5"></td><td><input type="text" class="abdul-in" id="ab-5-6"></td><td><input type="text" class="abdul-in" id="ab-5-7"></td><td class="total-col" id="ab-tot-5">0</td></tr>
-                    <tr><td>6</td><td>03.00</td><td class="nama-col">Hafiz</td><td><input type="text" class="abdul-in" id="ab-6-1" value="1"></td><td><input type="text" class="abdul-in" id="ab-6-2"></td><td><input type="text" class="abdul-in" id="ab-6-3"></td><td><input type="text" class="abdul-in" id="ab-6-4"></td><td><input type="text" class="abdul-in" id="ab-6-5"></td><td><input type="text" class="abdul-in" id="ab-6-6"></td><td><input type="text" class="abdul-in" id="ab-6-7"></td><td class="total-col" id="ab-tot-6">0</td></tr>
-                    <tr><td>7</td><td>04.00</td><td class="nama-col">Bang Adam</td><td><input type="text" class="abdul-in" id="ab-7-1"></td><td><input type="text" class="abdul-in" id="ab-7-2"></td><td><input type="text" class="abdul-in" id="ab-7-3"></td><td><input type="text" class="abdul-in" id="ab-7-4"></td><td><input type="text" class="abdul-in" id="ab-7-5"></td><td><input type="text" class="abdul-in" id="ab-7-6"></td><td><input type="text" class="abdul-in" id="ab-7-7"></td><td class="total-col" id="ab-tot-7">0</td></tr>
-                    <tr><td>8</td><td>05.00</td><td class="nama-col">Dede</td><td><input type="text" class="abdul-in" id="ab-8-1"></td><td><input type="text" class="abdul-in" id="ab-8-2"></td><td><input type="text" class="abdul-in" id="ab-8-3"></td><td><input type="text" class="abdul-in" id="ab-8-4"></td><td><input type="text" class="abdul-in" id="ab-8-5"></td><td><input type="text" class="abdul-in" id="ab-8-6"></td><td><input type="text" class="abdul-in" id="ab-8-7"></td><td class="total-col" id="ab-tot-8">0</td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="badalan-box">
-            <div class="badalan-title">⚠️ Badalan Lokasi 2 (Rumah Abdullamit)</div>
-            <div class="badalan-grid">
-                <div class="badalan-item"><span>Ke - 1 :</span><input type="text" id="bad-ab-1" value="Zekki Badalin Jawn"></div>
-                <div class="badalan-item"><span>Ke - 2 :</span><input type="text" id="bad-ab-2" value="-"></div>
-            </div>
-        </div>
-
-
-        <!-- ================= BAGIAN 2: JADWAL MANDIRI KHUSUS ================= -->
-        <div class="section-header khusus">🔵 BAGIAN II: JADWAL MANDIRI KHUSUS (SEKALI JALAN)</div>
-        
-        <div class="table-title" 
+    }
+    if (!adaBadalanMadsani) teks += " - (Tidak ada badalan)\n";
+    teks += "\n====================================\n";
+}
