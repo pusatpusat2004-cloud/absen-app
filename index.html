@@ -1,45 +1,126 @@
-// --- 3. PROSES TABEL 3 (RUMAH ALM. MADSANI BIN UMAR) ---
-if (document.getElementById('table-madsani')) {
-    teks += `\n*${document.getElementById('title-madsani').textContent}*\n`;
-    teks += "```\nNama  | M1| M2| M3| M4| M5| M6| M7| Tot\n";
-    teks += "---------------------------------------\n```";
-    
-    const rowsMadsani = document.getElementById('table-madsani').getElementsByTagName('tr');
-    for (let row of rowsMadsani) {
-        // Pastikan baris memiliki data nama (misal di cell indeks ke-2)
-        if (row.cells[2]) {
-            let nama = row.cells[2].textContent.padEnd(6, ' ').substring(0, 6);
-            let inputs = row.getElementsByClassName('input-cell');
-            let isiMalam = "";
-            
-            for (let input of inputs) {
-                let val = input.value.trim();
-                val = (val === "" || val === "?") ? " " : val;
-                isiMalam += val.padEnd(2, ' ') + "|";
-            }
-            
-            let total = row.querySelector('.total-cell') ? row.querySelector('.total-cell').textContent.trim() : "0";
-            teks += `\n\`${nama} |${isiMalam}${total.padEnd(3, ' ')}\``;
-        }
-    }
-    teks += "\n";
-    
-    // Ambil Data Badalan Tabel 3 jika ada
-    let adaBadalanMadsani = false;
-    // Asumsi maksimal ada 2 slot badalan seperti tabel lainnya
-    for (let i = 1; i <= 2; i++) {
-        let badalEl = document.getElementById(`badalan-madsani-${i}`);
-        if (badalEl) {
-            let badalVal = badalEl.value.trim();
-            if (badalVal) {
-                if (!adaBadalanMadsani) {
-                    teks += "\n*⚠️ Badalan:*\n";
-                    adaBadalanMadsani = true;
+function shareKeWhatsApp() {
+    let teks = "📝 *REKAPAN JADWAL NGAJI & BADALAN*\n\n";
+
+    // --- 1. PROSES TABEL 1 (RUMAH ALM. ASAN) ---
+    if (document.getElementById('table-asan')) {
+        teks += `🏡 *${document.getElementById('title-asan').textContent.trim()}*\n`;
+        teks += "```Nama     | M1| M2| M3| M4| M5| M6| M7| Tot\n";
+        teks += "---------|---|---|---|---|---|---|---|---\n";
+        const rowsAsan = document.getElementById('table-asan').getElementsByTagName('tr');
+        for (let row of rowsAsan) {
+            if (row.cells && row.cells.length > 2 && row.querySelector('.input-cell')) {
+                let nama = row.cells[2].textContent.trim().padEnd(8, ' ').substring(0, 8);
+                let inputs = row.getElementsByClassName('input-cell');
+                let isiMalam = "";
+                for (let input of inputs) {
+                    let val = input.value.trim();
+                    val = (val === "" || val === "?") ? " " : val;
+                    isiMalam += val.padEnd(2, ' ') + "|";
                 }
-                teks += `- Ke-${i}: ${badalVal}\n`;
+                let total = row.querySelector('.total-cell') ? row.querySelector('.total-cell').textContent.trim() : "0";
+                teks += `${nama} |${isiMalam}${total.padEnd(3, ' ')}\n`;
             }
         }
+        teks += "```\n";
+        
+        let adaBadalanAsan = false;
+        for (let i = 1; i <= 2; i++) {
+            let badalEl = document.getElementById(`badalan-asan-${i}`);
+            if (badalEl) {
+                let badalVal = badalEl.value.trim();
+                if (badalVal) {
+                    if (!adaBadalanAsan) {
+                        teks += "⚠️ *Badalan:*\n";
+                        adaBadalanAsan = true;
+                    }
+                    teks += `- Ke-${i}: ${badalVal}\n`;
+                }
+            }
+        }
+        if (!adaBadalanAsan) teks += " - (Tidak ada badalan)\n";
+        teks += "\n==============================\n\n";
     }
-    if (!adaBadalanMadsani) teks += " - (Tidak ada badalan)\n";
-    teks += "\n====================================\n";
+
+    // --- 2. PROSES TABEL 2 (RUMAH ALM. ABDULLAMIT) ---
+    if (document.getElementById('table-abdul')) {
+        teks += `🏡 *${document.getElementById('title-abdul').textContent.trim()}*\n`;
+        teks += "```Nama     | M1| M2| M3| M4| M5| M6| M7| Tot\n";
+        teks += "---------|---|---|---|---|---|---|---|---\n";
+        const rowsAbdul = document.getElementById('table-abdul').getElementsByTagName('tr');
+        for (let row of rowsAbdul) {
+            if (row.cells && row.cells.length > 2 && row.querySelector('.input-cell')) {
+                let nama = row.cells[2].textContent.trim().padEnd(8, ' ').substring(0, 8);
+                let inputs = row.getElementsByClassName('input-cell');
+                let isiMalam = "";
+                for (let input of inputs) {
+                    let val = input.value.trim();
+                    val = (val === "" || val === "?") ? " " : val;
+                    isiMalam += val.padEnd(2, ' ') + "|";
+                }
+                let total = row.querySelector('.total-cell') ? row.querySelector('.total-cell').textContent.trim() : "0";
+                teks += `${nama} |${isiMalam}${total.padEnd(3, ' ')}\n`;
+            }
+        }
+        teks += "```\n";
+        
+        let adaBadalanAbdul = false;
+        for (let i = 1; i <= 2; i++) {
+            let badalEl = document.getElementById(`badalan-abdul-${i}`);
+            if (badalEl) {
+                let badalVal = badalEl.value.trim();
+                if (badalVal) {
+                    if (!adaBadalanAbdul) {
+                        teks += "⚠️ *Badalan:*\n";
+                        adaBadalanAbdul = true;
+                    }
+                    teks += `- Ke-${i}: ${badalVal}\n`;
+                }
+            }
+        }
+        if (!adaBadalanAbdul) teks += " - (Tidak ada badalan)\n";
+        teks += "\n==============================\n\n";
+    }
+
+    // --- 3. PROSES TABEL 3 (RUMAH ALM. MADSANI BIN UMAR) ---
+    if (document.getElementById('table-madsani')) {
+        teks += `🏡 *${document.getElementById('title-madsani').textContent.trim()}*\n`;
+        teks += "```Nama     | M1| M2| M3| M4| M5| M6| M7| Tot\n";
+        teks += "---------|---|---|---|---|---|---|---|---\n";
+        const rowsMadsani = document.getElementById('table-madsani').getElementsByTagName('tr');
+        for (let row of rowsMadsani) {
+            if (row.cells && row.cells.length > 2 && row.querySelector('.input-cell')) {
+                let nama = row.cells[2].textContent.trim().padEnd(8, ' ').substring(0, 8);
+                let inputs = row.getElementsByClassName('input-cell');
+                let isiMalam = "";
+                for (let input of inputs) {
+                    let val = input.value.trim();
+                    val = (val === "" || val === "?") ? " " : val;
+                    isiMalam += val.padEnd(2, ' ') + "|";
+                }
+                let total = row.querySelector('.total-cell') ? row.querySelector('.total-cell').textContent.trim() : "0";
+                teks += `${nama} |${isiMalam}${total.padEnd(3, ' ')}\n`;
+            }
+        }
+        teks += "```\n";
+        
+        let adaBadalanMadsani = false;
+        for (let i = 1; i <= 2; i++) {
+            let badalEl = document.getElementById(`badalan-madsani-${i}`);
+            if (badalEl) {
+                let badalVal = badalEl.value.trim();
+                if (badalVal) {
+                    if (!adaBadalanMadsani) {
+                        teks += "⚠️ *Badalan:*\n";
+                        adaBadalanMadsani = true;
+                    }
+                    teks += `- Ke-${i}: ${badalVal}\n`;
+                }
+            }
+        }
+        if (!adaBadalanMadsani) teks += " - (Tidak ada badalan)\n";
+        teks += "\n==============================\n";
+    }
+
+    let urlWA = "https://api.whatsapp.com/send?text=" + encodeURIComponent(teks);
+    window.open(urlWA, '_blank');
 }
