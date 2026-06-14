@@ -2,13 +2,16 @@ function shareKeWhatsApp() {
     let teks = "📝 *REKAPAN JADWAL NGAJI & BADALAN*\n\n";
 
     // --- 1. PROSES TABEL 1 (RUMAH ALM. ASAN) ---
-    if (document.getElementById('table-asan')) {
-        teks += `🏡 *${document.getElementById('title-asan').textContent.trim()}*\n`;
+    // Menggunakan selektor tag table pertama jika ID tidak terdeteksi spesifik
+    let tableAsan = document.getElementById('table-asan') || document.getElementsByTagName('table')[0];
+    let titleAsan = document.getElementById('title-asan') || { textContent: "Jadwal Ngaji Rumah Alm. Asan / Alex Bin Asip" };
+    
+    if (tableAsan) {
+        teks += `🏡 *${titleAsan.textContent.trim()}*\n`;
         teks += "```Nama     | M1| M2| M3| M4| M5| M6| M7| Tot\n";
         teks += "---------|---|---|---|---|---|---|---|---\n";
-        const rowsAsan = document.getElementById('table-asan').getElementsByTagName('tr');
+        const rowsAsan = tableAsan.getElementsByTagName('tr');
         for (let row of rowsAsan) {
-            // Memastikan baris tersebut adalah baris data jamaah, bukan header atau baris kosong
             if (row.cells && row.cells.length > 2 && row.querySelector('.input-cell')) {
                 let nama = row.cells[2].textContent.trim().padEnd(8, ' ').substring(0, 8);
                 let inputs = row.getElementsByClassName('input-cell');
@@ -26,8 +29,8 @@ function shareKeWhatsApp() {
         teks += "```\n";
         
         let adaBadalanAsan = false;
-        for (let i = 1; i <= 7; i++) { // Disesuaikan sampai 7 slot sesuai tampilan rekap fix Anda
-            let badalEl = document.getElementById(`badalan-asan-${i}`);
+        for (let i = 1; i <= 7; i++) {
+            let badalEl = document.getElementById(`badalan-asan-${i}`) || document.getElementById(`badalan-${i}`);
             if (badalEl) {
                 let badalVal = badalEl.value.trim();
                 if (badalVal) {
@@ -44,11 +47,15 @@ function shareKeWhatsApp() {
     }
 
     // --- 2. PROSES TABEL 2 (RUMAH ALM. ABDULLAMIT) ---
-    if (document.getElementById('table-abdul')) {
-        teks += `🏡 *${document.getElementById('title-abdul').textContent.trim()}*\n`;
+    // Menggunakan selektor tag table kedua sebagai cadangan aman jika ID-nya berbeda
+    let tableAbdul = document.getElementById('table-abdul') || document.getElementById('table-abdullamit') || document.getElementsByTagName('table')[1];
+    let titleAbdul = document.getElementById('title-abdul') || { textContent: "Jadwal Ngaji Rumah Alm. Abdullamit Bin Deih" };
+    
+    if (tableAbdul) {
+        teks += `🏡 *${titleAbdul.textContent.trim()}*\n`;
         teks += "```Nama     | M1| M2| M3| M4| M5| M6| M7| Tot\n";
         teks += "---------|---|---|---|---|---|---|---|---\n";
-        const rowsAbdul = document.getElementById('table-abdul').getElementsByTagName('tr');
+        const rowsAbdul = tableAbdul.getElementsByTagName('tr');
         for (let row of rowsAbdul) {
             if (row.cells && row.cells.length > 2 && row.querySelector('.input-cell')) {
                 let nama = row.cells[2].textContent.trim().padEnd(8, ' ').substring(0, 8);
@@ -85,11 +92,15 @@ function shareKeWhatsApp() {
     }
 
     // --- 3. PROSES TABEL 3 (RUMAH ALM. MADSANI BIN UMAR) ---
-    if (document.getElementById('table-madsani')) {
-        teks += `🏡 *${document.getElementById('title-madsani').textContent.trim()}*\n`;
+    // Menggunakan selektor tag table ketiga
+    let tableMadsani = document.getElementById('table-madsani') || document.getElementsByTagName('table')[2];
+    let titleMadsani = document.getElementById('title-madsani') || { textContent: "Jadwal Ngaji Rumah Alm. Madsani Bin Umar" };
+    
+    if (tableMadsani) {
+        teks += `🏡 *${titleMadsani.textContent.trim()}*\n`;
         teks += "```Nama     | M1| M2| M3| M4| M5| M6| M7| Tot\n";
         teks += "---------|---|---|---|---|---|---|---|---\n";
-        const rowsMadsani = document.getElementById('table-madsani').getElementsByTagName('tr');
+        const rowsMadsani = tableMadsani.getElementsByTagName('tr');
         for (let row of rowsMadsani) {
             if (row.cells && row.cells.length > 2 && row.querySelector('.input-cell')) {
                 let nama = row.cells[2].textContent.trim().padEnd(8, ' ').substring(0, 8);
