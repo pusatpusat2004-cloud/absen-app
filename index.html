@@ -6,6 +6,10 @@
     <title>Aplikasi Jadwal Ngaji & Badalan</title>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+
     <style>
         :root {
             --primary-color: #2e7d32;
@@ -186,7 +190,6 @@
             background-color: #ffffff;
         }
 
-        /* Class bantuan saat proses pemotretan gambar */
         .mode-cetak .table-responsive {
             overflow-x: visible !important;
             width: auto !important;
@@ -231,6 +234,14 @@
             .table-card { padding: 20px; }
             header h1 { font-size: 24px; }
         }
+        
+        /* Status Indikator Sinkronisasi */
+        #sync-status {
+            font-size: 11px;
+            color: #2e7d32;
+            margin-top: 2px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -238,6 +249,7 @@
     <header>
         <h1>Jadwal Ngaji</h1>
         <p>Aplikasi monitoring kehadiran ngajian & badalan</p>
+        <div id="sync-status">🔄 Menghubungkan ke Database Online...</div>
     </header>
 
     <div id="capture-area">
@@ -412,6 +424,34 @@
     </div>
 
     <script>
+        // ==========================================
+        // 1. ATUR FIREBASE DI SINI
+        // ==========================================
+        // Ganti konfigurasi di bawah dengan proyek Firebase milikmu sendiri nanti
+        const firebaseConfig = {
+            databaseURL: "https://jadwal-ngaji-default-rtdb.firebaseio.com" 
+        };
+
+        // Inisialisasi Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const dbRef = database.ref('rekap_jadwal_ngaji');
+
+        // Menampilkan status koneksi
+        const statusDiv = document.getElementById('sync-status');
+        database.ref('.info/connected').on('value', function(snap) {
+            if (snap.val() === true) {
+                statusDiv.style.color = "#2e7d32";
+                statusDiv.innerHTML = "🟢 Terhubung ke Database Online (Sinkron Berjalan)";
+            } else {
+                statusDiv.style.color = "#d32f2f";
+                statusDiv.innerHTML = "🔴 Terputus. Mencoba menghubungkan kembali...";
+            }
+        });
+
+        // ==========================================
+        // 2. FUNGSI LOGIKA UTAMA & REALTIME DATA
+        // ==========================================
         function hitungSemuaTotal() {
             const tables = ['table-asan', 'table-abdullamit'];
             tables.forEach(tableId => {
@@ -433,28 +473,40 @@
             });
         }
 
-        function simpanData() {
-            const inputs = document.querySelectorAll('.input-cell, .save-state');
-            inputs.forEach(input => { localStorage.setItem(input.id, input.value); });
-        }
+        // MUAT DATA SECARA REALTIME DARI FIREBASE (Untuk semua orang)
+        dbRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                Object.keys(data).forEach(id => {
+                    const inputElement = document.getElementById(id);
+                    // Pastikan tidak merusak fokus ketikan user yang sedang aktif mengisi
+                    if (inputElement && document.activeElement !== inputElement) {
+                        inputElement.value = data[id];
+                    }
+                });
+                hitungSemuaTotal();
+            }
+        });
 
-        function muatData() {
-            const inputs = document.querySelectorAll('.input-cell, .save-state');
-            inputs.forEach(input => {
-                const savedValue = localStorage.getItem(input.id);
-                if (savedValue !== null) { input.value = savedValue; }
-            });
-            hitungSemuaTotal();
-        }
+        // SIMPAN DATA KE FIREBASE KETIKA SELESAI MENGETIK
+        document.addEventListener('input', function(e) {
+            if(e.target && (e.target.classList.contains('input-cell') || e.target.classList.contains('save-state'))) {
+                hitungSemuaTotal();
+                
+                // Kirim perubahan satu field saja ke firebase secara real-time
+                let updateData = {};
+                updateData[e.target.id] = e.target.value;
+                dbRef.update(updateData);
+            }
+        });
 
-        // FUNGSI SNAPSHOT BARU: ANTI-POTONG & KOTAK PRESISI LURUS
+        // ==========================================
+        // 3. FUNGSI EKSPORT GAMBAR & EXCEL
+        // ==========================================
         function shareKeWhatsAppGambar() {
             const target = document.getElementById('capture-area');
-            
-            // 1. Masuk ke mode cetak (melebarkan tabel secara paksa di background)
             document.body.classList.add('mode-cetak');
             
-            // 2. Sembunyikan elemen input asli dengan mengganti tampilannya ke teks biasa agar tertangkap html2canvas dengan rapi
             const inputs = target.querySelectorAll('input');
             const placeholders = [];
             
@@ -480,22 +532,19 @@
                 placeholders.push({ inp: input, spn: span });
             });
 
-            // 3. Jalankan pemotretan gambar dengan settingan lebar konstan (880px)
             html2canvas(target, {
                 backgroundColor: "#f4f6f8",
                 logging: false,
                 useCORS: true,
                 scale: 2,
-                windowWidth: 950 // Membuat canvas berpikir ini dibuka di layar PC lebar
+                windowWidth: 950 
             }).then(canvas => {
-                // 4. Kembalikan kondisi HTML seperti semula (input muncul lagi, teks tiruan dihapus)
                 placeholders.forEach(item => {
                     item.inp.style.display = "";
                     item.spn.parentNode.removeChild(item.spn);
                 });
                 document.body.classList.remove('mode-cetak');
 
-                // 5. Download hasil foto
                 const link = document.createElement('a');
                 link.download = 'Rekap_Jadwal_Ngaji_Fix.png';
                 link.href = canvas.toDataURL('image/png');
@@ -552,15 +601,6 @@
 
             XLSX.writeFile(wb, "Rekap_Kehadiran_Ngaji.xlsx");
         }
-
-        window.onload = muatData;
-
-        document.addEventListener('input', function(e) {
-            if(e.target && (e.target.classList.contains('input-cell') || e.target.classList.contains('save-state'))) {
-                hitungSemuaTotal();
-                simpanData();
-            }
-        });
     </script>
 </body>
 </html>
