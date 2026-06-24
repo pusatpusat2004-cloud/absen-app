@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     
+    <!-- SDK Firebase -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 
@@ -227,15 +228,7 @@
         .btn:active { transform: scale(0.98); }
         .btn-whatsapp { background-color: var(--wa-color); }
         .btn-excel { background-color: var(--excel-color); }
-
-        @media (min-width: 600px) {
-            .action-group { flex-direction: row; }
-            body { padding: 20px; }
-            .table-card { padding: 20px; }
-            header h1 { font-size: 24px; }
-        }
         
-        /* Status Indikator Sinkronisasi */
         #sync-status {
             font-size: 11px;
             color: #2e7d32;
@@ -253,15 +246,16 @@
     </header>
 
     <div id="capture-area">
+        <!-- SATU KOLOM TABEL BESAR SESUAI REQUEST -->
         <div class="table-card">
-            <div class="table-title" id="title-asan">Jadwal Ngaji Rumah Alm. Madsani Bin Umar</div>
+            <div class="table-title" id="title-muradi">Jadwal Ngaji Rumah Alm. Muradi / Jovi Bin Abdul Majid</div>
             <div class="table-responsive">
                 <table>
                     <thead>
                         <tr>
                             <th rowspan="2" style="width: 40px;">No</th>
                             <th rowspan="2" style="width: 60px;">Waktu</th>
-                            <th rowspan="2" style="width: 120px;">Nama</th>
+                            <th rowspan="2" style="width: 155px;">Nama</th>
                             <th colspan="7">Malam Ke-</th>
                             <th rowspan="2" style="width: 60px;">Total</th>
                         </tr>
@@ -269,59 +263,65 @@
                             <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th>
                         </tr>
                     </thead>
-                    <tbody id="table-asan">
+                    <tbody id="table-muradi-body">
                         <tr>
-                            <td>1</td><td>21.00</td><td class="left-align">Adam</td>
-                            <td><input type="text" class="input-cell" id="asan-1-1" value="1"></td><td><input type="text" class="input-cell" id="asan-1-2" value="1"></td>
-                            <td><input type="text" class="input-cell" id="asan-1-3" value=""></td><td><input type="text" class="input-cell" id="asan-1-4" value=""></td><td><input type="text" class="input-cell" id="asan-1-5" value=""></td><td><input type="text" class="input-cell" id="asan-1-6" value=""></td><td><input type="text" class="input-cell" id="asan-1-7" value=""></td>
+                            <td>1</td><td>18.00</td><td class="left-align">Dede</td>
+                            <td><input type="text" class="input-cell" id="muradi-1-1" value=""></td><td><input type="text" class="input-cell" id="muradi-1-2" value=""></td><td><input type="text" class="input-cell" id="muradi-1-3" value=""></td><td><input type="text" class="input-cell" id="muradi-1-4" value=""></td><td><input type="text" class="input-cell" id="muradi-1-5" value=""></td><td><input type="text" class="input-cell" id="muradi-1-6" value=""></td><td><input type="text" class="input-cell" id="muradi-1-7" value=""></td>
                             <td class="total-cell">0</td>
                         </tr>
                         <tr>
-                            <td>2</td><td>22.00</td><td class="left-align">Sutrisna</td>
-                            <td><input type="text" class="input-cell" id="asan-2-1" value="1"></td><td><input type="text" class="input-cell" id="asan-2-2" value="x"></td>
-                            <td><input type="text" class="input-cell" id="asan-2-3" value=""></td><td><input type="text" class="input-cell" id="asan-2-4" value=""></td><td><input type="text" class="input-cell" id="asan-2-5" value=""></td><td><input type="text" class="input-cell" id="asan-2-6" value=""></td><td><input type="text" class="input-cell" id="asan-2-7" value=""></td>
+                            <td>2</td><td>19.00</td><td class="left-align">Bang Salam</td>
+                            <td><input type="text" class="input-cell" id="muradi-2-1" value=""></td><td><input type="text" class="input-cell" id="muradi-2-2" value=""></td><td><input type="text" class="input-cell" id="muradi-2-3" value=""></td><td><input type="text" class="input-cell" id="muradi-2-4" value=""></td><td><input type="text" class="input-cell" id="muradi-2-5" value=""></td><td><input type="text" class="input-cell" id="muradi-2-6" value=""></td><td><input type="text" class="input-cell" id="muradi-2-7" value=""></td>
                             <td class="total-cell">0</td>
                         </tr>
                         <tr>
-                            <td>3</td><td>23.00</td><td class="left-align">Mas'ud</td>
-                            <td><input type="text" class="input-cell" id="asan-3-1" value="1"></td><td><input type="text" class="input-cell" id="asan-3-2" value="2"></td>
-                            <td><input type="text" class="input-cell" id="asan-3-3" value=""></td><td><input type="text" class="input-cell" id="asan-3-4" value=""></td><td><input type="text" class="input-cell" id="asan-3-5" value=""></td><td><input type="text" class="input-cell" id="asan-3-6" value=""></td><td><input type="text" class="input-cell" id="asan-3-7" value=""></td>
+                            <td>3</td><td>20.00</td><td class="left-align">Bang Adam</td>
+                            <td><input type="text" class="input-cell" id="muradi-3-1" value=""></td><td><input type="text" class="input-cell" id="muradi-3-2" value=""></td><td><input type="text" class="input-cell" id="muradi-3-3" value=""></td><td><input type="text" class="input-cell" id="muradi-3-4" value=""></td><td><input type="text" class="input-cell" id="muradi-3-5" value=""></td><td><input type="text" class="input-cell" id="muradi-3-6" value=""></td><td><input type="text" class="input-cell" id="muradi-3-7" value=""></td>
                             <td class="total-cell">0</td>
                         </tr>
                         <tr>
-                            <td>4</td><td>00.00</td><td class="left-align">Syauqi</td>
-                            <td><input type="text" class="input-cell" id="asan-4-1" value="1"></td><td><input type="text" class="input-cell" id="asan-4-2" value="1"></td>
-                            <td><input type="text" class="input-cell" id="asan-4-3" value=""></td><td><input type="text" class="input-cell" id="asan-4-4" value=""></td><td><input type="text" class="input-cell" id="asan-4-5" value=""></td><td><input type="text" class="input-cell" id="asan-4-6" value=""></td><td><input type="text" class="input-cell" id="asan-4-7" value=""></td>
+                            <td>4</td><td>21.00</td><td class="left-align">Zaen</td>
+                            <td><input type="text" class="input-cell" id="muradi-4-1" value=""></td><td><input type="text" class="input-cell" id="muradi-4-2" value=""></td><td><input type="text" class="input-cell" id="muradi-4-3" value=""></td><td><input type="text" class="input-cell" id="muradi-4-4" value=""></td><td><input type="text" class="input-cell" id="muradi-4-5" value=""></td><td><input type="text" class="input-cell" id="muradi-4-6" value=""></td><td><input type="text" class="input-cell" id="muradi-4-7" value=""></td>
                             <td class="total-cell">0</td>
                         </tr>
                         <tr>
-                            <td>5</td><td>01.00</td><td class="left-align">Hafidz</td>
-                            <td><input type="text" class="input-cell" id="asan-5-1" value="1"></td><td><input type="text" class="input-cell" id="asan-5-2" value="1"></td>
-                            <td><input type="text" class="input-cell" id="asan-5-3" value=""></td><td><input type="text" class="input-cell" id="asan-5-4" value=""></td><td><input type="text" class="input-cell" id="asan-5-5" value=""></td><td><input type="text" class="input-cell" id="asan-5-6" value=""></td><td><input type="text" class="input-cell" id="asan-5-7" value=""></td>
+                            <td>5</td><td>22.00</td><td class="left-align">Fajri</td>
+                            <td><input type="text" class="input-cell" id="muradi-5-1" value=""></td><td><input type="text" class="input-cell" id="muradi-5-2" value=""></td><td><input type="text" class="input-cell" id="muradi-5-3" value=""></td><td><input type="text" class="input-cell" id="muradi-5-4" value=""></td><td><input type="text" class="input-cell" id="muradi-5-5" value=""></td><td><input type="text" class="input-cell" id="muradi-5-6" value=""></td><td><input type="text" class="input-cell" id="muradi-5-7" value=""></td>
                             <td class="total-cell">0</td>
                         </tr>
                         <tr>
-                            <td>6</td><td>02.00</td><td class="left-align">Faiz</td>
-                            <td><input type="text" class="input-cell" id="asan-6-1" value="2"></td><td><input type="text" class="input-cell" id="asan-6-2" value="1"></td>
-                            <td><input type="text" class="input-cell" id="asan-6-3" value=""></td><td><input type="text" class="input-cell" id="asan-6-4" value=""></td><td><input type="text" class="input-cell" id="asan-6-5" value=""></td><td><input type="text" class="input-cell" id="asan-6-6" value=""></td><td><input type="text" class="input-cell" id="asan-6-7" value=""></td>
+                            <td>6</td><td>23.00</td><td class="left-align">Ustadz Andi</td>
+                            <td><input type="text" class="input-cell" id="muradi-6-1" value=""></td><td><input type="text" class="input-cell" id="muradi-6-2" value=""></td><td><input type="text" class="input-cell" id="muradi-6-3" value=""></td><td><input type="text" class="input-cell" id="muradi-6-4" value=""></td><td><input type="text" class="input-cell" id="muradi-6-5" value=""></td><td><input type="text" class="input-cell" id="muradi-6-6" value=""></td><td><input type="text" class="input-cell" id="muradi-6-7" value=""></td>
                             <td class="total-cell">0</td>
                         </tr>
                         <tr>
-                            <td>7</td><td>03.00</td><td class="left-align">Fahri</td>
-                            <td><input type="text" class="input-cell" id="asan-7-1" value="x"></td><td><input type="text" class="input-cell" id="asan-7-2" value="1"></td>
-                            <td><input type="text" class="input-cell" id="asan-7-3" value=""></td><td><input type="text" class="input-cell" id="asan-7-4" value=""></td><td><input type="text" class="input-cell" id="asan-7-5" value=""></td><td><input type="text" class="input-cell" id="asan-7-6" value=""></td><td><input type="text" class="input-cell" id="asan-7-7" value=""></td>
+                            <td>7</td><td>00.00</td><td class="left-align">Amsori (Adik Zuqi)</td>
+                            <td><input type="text" class="input-cell" id="muradi-7-1" value=""></td><td><input type="text" class="input-cell" id="muradi-7-2" value=""></td><td><input type="text" class="input-cell" id="muradi-7-3" value=""></td><td><input type="text" class="input-cell" id="muradi-7-4" value=""></td><td><input type="text" class="input-cell" id="muradi-7-5" value=""></td><td><input type="text" class="input-cell" id="muradi-7-6" value=""></td><td><input type="text" class="input-cell" id="muradi-7-7" value=""></td>
                             <td class="total-cell">0</td>
                         </tr>
                         <tr>
-                            <td>8</td><td>04.00</td><td class="left-align">Arul</td>
-                            <td><input type="text" class="input-cell" id="asan-8-1" value="1"></td><td><input type="text" class="input-cell" id="asan-8-2" value="1"></td>
-                            <td><input type="text" class="input-cell" id="asan-8-3" value=""></td><td><input type="text" class="input-cell" id="asan-8-4" value=""></td><td><input type="text" class="input-cell" id="asan-8-5" value=""></td><td><input type="text" class="input-cell" id="asan-8-6" value=""></td><td><input type="text" class="input-cell" id="asan-8-7" value=""></td>
+                            <td>8</td><td>01.00</td><td class="left-align">Atib</td>
+                            <td><input type="text" class="input-cell" id="muradi-8-1" value=""></td><td><input type="text" class="input-cell" id="muradi-8-2" value=""></td><td><input type="text" class="input-cell" id="muradi-8-3" value=""></td><td><input type="text" class="input-cell" id="muradi-8-4" value=""></td><td><input type="text" class="input-cell" id="muradi-8-5" value=""></td><td><input type="text" class="input-cell" id="muradi-8-6" value=""></td><td><input type="text" class="input-cell" id="muradi-8-7" value=""></td>
                             <td class="total-cell">0</td>
                         </tr>
                         <tr>
-                            <td>9</td><td>05.00</td><td class="left-align">Zuqi</td>
-                            <td><input type="text" class="input-cell" id="asan-9-1" value="x"></td><td><input type="text" class="input-cell" id="asan-9-2" value="1"></td>
-                            <td><input type="text" class="input-cell" id="asan-9-3" value=""></td><td><input type="text" class="input-cell" id="asan-9-4" value=""></td><td><input type="text" class="input-cell" id="asan-9-5" value=""></td><td><input type="text" class="input-cell" id="asan-9-6" value=""></td><td><input type="text" class="input-cell" id="asan-9-7" value=""></td>
+                            <td>9</td><td>02.00</td><td class="left-align">Hafiz</td>
+                            <td><input type="text" class="input-cell" id="muradi-9-1" value=""></td><td><input type="text" class="input-cell" id="muradi-9-2" value=""></td><td><input type="text" class="input-cell" id="muradi-9-3" value=""></td><td><input type="text" class="input-cell" id="muradi-9-4" value=""></td><td><input type="text" class="input-cell" id="muradi-9-5" value=""></td><td><input type="text" class="input-cell" id="muradi-9-6" value=""></td><td><input type="text" class="input-cell" id="muradi-9-7" value=""></td>
+                            <td class="total-cell">0</td>
+                        </tr>
+                        <tr>
+                            <td>10</td><td>03.00</td><td class="left-align">Faiz</td>
+                            <td><input type="text" class="input-cell" id="muradi-10-1" value=""></td><td><input type="text" class="input-cell" id="muradi-10-2" value=""></td><td><input type="text" class="input-cell" id="muradi-10-3" value=""></td><td><input type="text" class="input-cell" id="muradi-10-4" value=""></td><td><input type="text" class="input-cell" id="muradi-10-5" value=""></td><td><input type="text" class="input-cell" id="muradi-10-6" value=""></td><td><input type="text" class="input-cell" id="muradi-10-7" value=""></td>
+                            <td class="total-cell">0</td>
+                        </tr>
+                        <tr>
+                            <td>11</td><td>04.00</td><td class="left-align">Musta'la</td>
+                            <td><input type="text" class="input-cell" id="muradi-11-1" value=""></td><td><input type="text" class="input-cell" id="muradi-11-2" value=""></td><td><input type="text" class="input-cell" id="muradi-11-3" value=""></td><td><input type="text" class="input-cell" id="muradi-11-4" value=""></td><td><input type="text" class="input-cell" id="muradi-11-5" value=""></td><td><input type="text" class="input-cell" id="muradi-11-6" value=""></td><td><input type="text" class="input-cell" id="muradi-11-7" value=""></td>
+                            <td class="total-cell">0</td>
+                        </tr>
+                        <tr>
+                            <td>12</td><td>05.00</td><td class="left-align">Amil Micang</td>
+                            <td><input type="text" class="input-cell" id="muradi-12-1" value=""></td><td><input type="text" class="input-cell" id="muradi-12-2" value=""></td><td><input type="text" class="input-cell" id="muradi-12-3" value=""></td><td><input type="text" class="input-cell" id="muradi-12-4" value=""></td><td><input type="text" class="input-cell" id="muradi-12-5" value=""></td><td><input type="text" class="input-cell" id="muradi-12-6" value=""></td><td><input type="text" class="input-cell" id="muradi-12-7" value=""></td>
                             <td class="total-cell">0</td>
                         </tr>
                     </tbody>
@@ -330,86 +330,10 @@
 
             <div class="badalan-section">
                 <div class="badalan-title">⚠️ Badalan</div>
-                <div class="badalan-row"><span>Ke - 1</span><input type="text" id="badalan-asan-1" class="save-state" placeholder="Ketik waktu dan nama..."></div>
-                <div class="badalan-row"><span>Ke - 2</span><input type="text" id="badalan-asan-2" class="save-state" placeholder="Ketik waktu dan nama..."></div>
-                <div class="badalan-row"><span>Ke - 3</span><input type="text" id="badalan-asan-3" class="save-state" placeholder="Ketik waktu dan nama..."></div>
-                <div class="badalan-row"><span>Ke - 4</span><input type="text" id="badalan-asan-4" class="save-state" placeholder="Ketik waktu dan nama..."></div>
-            </div>
-        </div>
-
-        <div class="table-card">
-            <div class="table-title" id="title-abdul">Jadwal Ngaji Rumah Alm. Abdullamit Bin Deih</div>
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th rowspan="2" style="width: 40px;">No</th>
-                            <th rowspan="2" style="width: 60px;">Waktu</th>
-                            <th rowspan="2" style="width: 120px;">Nama</th>
-                            <th colspan="7">Malam Ke-</th>
-                            <th rowspan="2" style="width: 60px;">Total</th>
-                        </tr>
-                        <tr>
-                            <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-abdullamit">
-                        <tr>
-                            <td>1</td><td>22.00</td><td class="left-align">Rehan</td>
-                            <td><input type="text" class="input-cell" id="abdul-1-1" value="1"></td>
-                            <td><input type="text" class="input-cell" id="abdul-1-2" value=""></td><td><input type="text" class="input-cell" id="abdul-1-3" value=""></td><td><input type="text" class="input-cell" id="abdul-1-4" value=""></td><td><input type="text" class="input-cell" id="abdul-1-5" value=""></td><td><input type="text" class="input-cell" id="abdul-1-6" value=""></td><td><input type="text" class="input-cell" id="abdul-1-7" value=""></td>
-                            <td class="total-cell">0</td>
-                        </tr>
-                        <tr>
-                            <td>2</td><td>23.00</td><td class="left-align">Atib</td>
-                            <td><input type="text" class="input-cell" id="abdul-2-1" value="1"></td>
-                            <td><input type="text" class="input-cell" id="abdul-2-2" value=""></td><td><input type="text" class="input-cell" id="abdul-2-3" value=""></td><td><input type="text" class="input-cell" id="abdul-2-4" value=""></td><td><input type="text" class="input-cell" id="abdul-2-5" value=""></td><td><input type="text" class="input-cell" id="abdul-2-6" value=""></td><td><input type="text" class="input-cell" id="abdul-2-7" value=""></td>
-                            <td class="total-cell">0</td>
-                        </tr>
-                        <tr>
-                            <td>3</td><td>00.00</td><td class="left-align">Faiz</td>
-                            <td><input type="text" class="input-cell" id="abdul-3-1" value="1"></td>
-                            <td><input type="text" class="input-cell" id="abdul-3-2" value=""></td><td><input type="text" class="input-cell" id="abdul-3-3" value=""></td><td><input type="text" class="input-cell" id="abdul-3-4" value=""></td><td><input type="text" class="input-cell" id="abdul-3-5" value=""></td><td><input type="text" class="input-cell" id="abdul-3-6" value=""></td><td><input type="text" class="input-cell" id="abdul-3-7" value=""></td>
-                            <td class="total-cell">0</td>
-                        </tr>
-                        <tr>
-                            <td>4</td><td>01.00</td><td class="left-align">Jaen</td>
-                            <td><input type="text" class="input-cell" id="abdul-4-1" value="1"></td>
-                            <td><input type="text" class="input-cell" id="abdul-4-2" value=""></td><td><input type="text" class="input-cell" id="abdul-4-3" value=""></td><td><input type="text" class="input-cell" id="abdul-4-4" value=""></td><td><input type="text" class="input-cell" id="abdul-4-5" value=""></td><td><input type="text" class="input-cell" id="abdul-4-6" value=""></td><td><input type="text" class="input-cell" id="abdul-4-7" value=""></td>
-                            <td class="total-cell">0</td>
-                        </tr>
-                        <tr>
-                            <td>5</td><td>02.00</td><td class="left-align">Syauqi</td>
-                            <td><input type="text" class="input-cell" id="abdul-5-1" value="1"></td>
-                            <td><input type="text" class="input-cell" id="abdul-5-2" value=""></td><td><input type="text" class="input-cell" id="abdul-5-3" value=""></td><td><input type="text" class="input-cell" id="abdul-5-4" value=""></td><td><input type="text" class="input-cell" id="abdul-5-5" value=""></td><td><input type="text" class="input-cell" id="abdul-5-6" value=""></td><td><input type="text" class="input-cell" id="abdul-5-7" value=""></td>
-                            <td class="total-cell">0</td>
-                        </tr>
-                        <tr>
-                            <td>6</td><td>03.00</td><td class="left-align">Hafiz</td>
-                            <td><input type="text" class="input-cell" id="abdul-6-1" value="1"></td>
-                            <td><input type="text" class="input-cell" id="abdul-6-2" value=""></td><td><input type="text" class="input-cell" id="abdul-6-3" value=""></td><td><input type="text" class="input-cell" id="abdul-6-4" value=""></td><td><input type="text" class="input-cell" id="abdul-6-5" value=""></td><td><input type="text" class="input-cell" id="abdul-6-6" value=""></td><td><input type="text" class="input-cell" id="abdul-6-7" value=""></td>
-                            <td class="total-cell">0</td>
-                        </tr>
-                        <tr>
-                            <td>7</td><td>04.00</td><td class="left-align">Bang Adam</td>
-                            <td><input type="text" class="input-cell" id="abdul-7-1" value=""></td>
-                            <td><input type="text" class="input-cell" id="abdul-7-2" value=""></td><td><input type="text" class="input-cell" id="abdul-7-3" value=""></td><td><input type="text" class="input-cell" id="abdul-7-4" value=""></td><td><input type="text" class="input-cell" id="abdul-7-5" value=""></td><td><input type="text" class="input-cell" id="abdul-7-6" value=""></td><td><input type="text" class="input-cell" id="abdul-7-7" value=""></td>
-                            <td class="total-cell">0</td>
-                        </tr>
-                        <tr>
-                            <td>8</td><td>05.00</td><td class="left-align">Dede</td>
-                            <td><input type="text" class="input-cell" id="abdul-8-1" value=""></td>
-                            <td><input type="text" class="input-cell" id="abdul-8-2" value=""></td><td><input type="text" class="input-cell" id="abdul-8-3" value=""></td><td><input type="text" class="input-cell" id="abdul-8-4" value=""></td><td><input type="text" class="input-cell" id="abdul-8-5" value=""></td><td><input type="text" class="input-cell" id="abdul-8-6" value=""></td><td><input type="text" class="input-cell" id="abdul-8-7" value=""></td>
-                            <td class="total-cell">0</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="badalan-section">
-                <div class="badalan-title">⚠️ Badalan</div>
-                <div class="badalan-row"><span>Ke - 1</span><input type="text" id="badalan-abdul-1" class="save-state" placeholder="Ketik waktu dan nama..."></div>
-                <div class="badalan-row"><span>Ke - 2</span><input type="text" id="badalan-abdul-2" class="save-state" placeholder="Ketik waktu dan nama..."></div>
+                <div class="badalan-row"><span>Ke - 1</span><input type="text" id="badalan-muradi-1" class="save-state" placeholder="Ketik waktu dan nama..."></div>
+                <div class="badalan-row"><span>Ke - 2</span><input type="text" id="badalan-muradi-2" class="save-state" placeholder="Ketik waktu dan nama..."></div>
+                <div class="badalan-row"><span>Ke - 3</span><input type="text" id="badalan-muradi-3" class="save-state" placeholder="Ketik waktu dan nama..."></div>
+                <div class="badalan-row"><span>Ke - 4</span><input type="text" id="badalan-muradi-4" class="save-state" placeholder="Ketik waktu dan nama..."></div>
             </div>
         </div>
     </div>
@@ -425,19 +349,16 @@
 
     <script>
         // ==========================================
-        // 1. ATUR FIREBASE DI SINI
+        // KONFIGURASI FIREBASE REALTIME DATABASE
         // ==========================================
-        // Ganti konfigurasi di bawah dengan proyek Firebase milikmu sendiri nanti
         const firebaseConfig = {
             databaseURL: "https://jadwal-ngaji-default-rtdb.firebaseio.com" 
         };
 
-        // Inisialisasi Firebase
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
-        const dbRef = database.ref('rekap_jadwal_ngaji');
+        const dbRef = database.ref('rekap_jadwal_ngaji_muradi');
 
-        // Menampilkan status koneksi
         const statusDiv = document.getElementById('sync-status');
         database.ref('.info/connected').on('value', function(snap) {
             if (snap.val() === true) {
@@ -450,36 +371,32 @@
         });
 
         // ==========================================
-        // 2. FUNGSI LOGIKA UTAMA & REALTIME DATA
+        // LOGIKA PERHITUNGAN OTOMATIS
         // ==========================================
         function hitungSemuaTotal() {
-            const tables = ['table-asan', 'table-abdullamit'];
-            tables.forEach(tableId => {
-                const tbody = document.getElementById(tableId);
-                if (!tbody) return;
-                const rows = tbody.getElementsByTagName('tr');
-                for (let row of rows) {
-                    const inputs = row.getElementsByClassName('input-cell');
-                    let total = 0;
-                    for (let input of inputs) {
-                        let val = input.value.trim().toLowerCase();
-                        if (!isNaN(val) && val !== '') {
-                            total += parseInt(val);
-                        }
+            const tbody = document.getElementById('table-muradi-body');
+            if (!tbody) return;
+            const rows = tbody.getElementsByTagName('tr');
+            for (let row of rows) {
+                const inputs = row.getElementsByClassName('input-cell');
+                let total = 0;
+                for (let input of inputs) {
+                    let val = input.value.trim();
+                    if (!isNaN(val) && val !== '') {
+                        total += parseInt(val);
                     }
-                    const totalCell = row.getElementsByClassName('total-cell')[0];
-                    if (totalCell) { totalCell.textContent = total; }
                 }
-            });
+                const totalCell = row.getElementsByClassName('total-cell')[0];
+                if (totalCell) { totalCell.textContent = total; }
+            }
         }
 
-        // MUAT DATA SECARA REALTIME DARI FIREBASE (Untuk semua orang)
+        // AMBIL DATA REALTIME DARI FIREBASE
         dbRef.on('value', (snapshot) => {
             const data = snapshot.val();
             if (data) {
                 Object.keys(data).forEach(id => {
                     const inputElement = document.getElementById(id);
-                    // Pastikan tidak merusak fokus ketikan user yang sedang aktif mengisi
                     if (inputElement && document.activeElement !== inputElement) {
                         inputElement.value = data[id];
                     }
@@ -488,12 +405,10 @@
             }
         });
 
-        // SIMPAN DATA KE FIREBASE KETIKA SELESAI MENGETIK
+        // SIMPAN DATA REALTIME KETIKA DIKETIK
         document.addEventListener('input', function(e) {
             if(e.target && (e.target.classList.contains('input-cell') || e.target.classList.contains('save-state'))) {
                 hitungSemuaTotal();
-                
-                // Kirim perubahan satu field saja ke firebase secara real-time
                 let updateData = {};
                 updateData[e.target.id] = e.target.value;
                 dbRef.update(updateData);
@@ -501,7 +416,7 @@
         });
 
         // ==========================================
-        // 3. FUNGSI EKSPORT GAMBAR & EXCEL
+        // CETAK GAMBAR & EXCEL
         // ==========================================
         function shareKeWhatsAppGambar() {
             const target = document.getElementById('capture-area');
@@ -546,13 +461,13 @@
                 document.body.classList.remove('mode-cetak');
 
                 const link = document.createElement('a');
-                link.download = 'Rekap_Jadwal_Ngaji_Fix.png';
+                link.download = 'Rekap_Jadwal_Ngaji_Muradi.png';
                 link.href = canvas.toDataURL('image/png');
                 link.click();
 
-                alert("Gambar Berhasil Diunduh!\nKotak dijamin lurus, presisi, dan tidak terpotong kiri-kanan.");
+                alert("Gambar Berhasil Diunduh!");
 
-                let teksWA = "📝 *REKAPAN JADWAL NGAJI & BADALAN BARU*\n\nData rekap kehadiran malam ini telah diperbarui otomatis. Detail lengkap silakan lihat pada gambar terlampir.";
+                let teksWA = "📝 *REKAPAN JADWAL NGAJI & BADALAN BARU*\n*(Rumah Alm. Muradi/Jovi Bin Abdul Majid)*\n\nData rekap kehadiran malam ini telah diperbarui otomatis. Silakan cek detail lengkap lewat link web atau gambar.";
                 window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(teksWA), '_blank');
             }).catch(err => {
                 console.error(err);
@@ -562,44 +477,24 @@
 
         function downloadKeExcel() {
             let wb = XLSX.utils.book_new();
-            
-            // Rumah Asan
-            let dataAsan = [
-                [document.getElementById('title-asan').textContent],
+            let dataMuradi = [
+                [document.getElementById('title-muradi').textContent],
                 [],
                 ["No", "Waktu", "Nama", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "Total Kehadiran"]
             ];
-            const rowsAsan = document.getElementById('table-asan').getElementsByTagName('tr');
-            for(let row of rowsAsan) {
+            const rows = document.getElementById('table-muradi-body').getElementsByTagName('tr');
+            for(let row of rows) {
                 let rowData = [row.cells[0].textContent, row.cells[1].textContent, row.cells[2].textContent];
                 let inputs = row.getElementsByClassName('input-cell');
                 for(let input of inputs) { rowData.push(input.value); }
                 rowData.push(row.querySelector('.total-cell').textContent);
-                dataAsan.push(rowData);
+                dataMuradi.push(rowData);
             }
-            dataAsan.push([]); dataAsan.push(["DATA BADALAN:"]);
-            for(let i=1; i<=4; i++) { dataAsan.push([`Ke - ${i}`, "", document.getElementById(`badalan-asan-${i}`).value]); }
-            XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(dataAsan), "Rumah Alm Asan");
+            dataMuradi.push([]); dataMuradi.push(["DATA BADALAN:"]);
+            for(let i=1; i<=4; i++) { dataMuradi.push([`Ke - ${i}`, "", document.getElementById(`badalan-muradi-${i}`).value]); }
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(dataMuradi), "Rumah Alm Muradi");
 
-            // Rumah Abdullamit
-            let dataAbdul = [
-                [document.getElementById('title-abdul').textContent],
-                [],
-                ["No", "Waktu", "Nama", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "Total Kehadiran"]
-            ];
-            const rowsAbdul = document.getElementById('table-abdullamit').getElementsByTagName('tr');
-            for(let row of rowsAbdul) {
-                let rowData = [row.cells[0].textContent, row.cells[1].textContent, row.cells[2].textContent];
-                let inputs = row.getElementsByClassName('input-cell');
-                for(let input of inputs) { rowData.push(input.value); }
-                rowData.push(row.querySelector('.total-cell').textContent);
-                dataAbdul.push(rowData);
-            }
-            dataAbdul.push([]); dataAbdul.push(["DATA BADALAN:"]);
-            for(let i=1; i<=2; i++) { dataAbdul.push([`Ke - ${i}`, "", document.getElementById(`badalan-abdul-${i}`).value]); }
-            XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(dataAbdul), "Rumah Alm Abdullamit");
-
-            XLSX.writeFile(wb, "Rekap_Kehadiran_Ngaji.xlsx");
+            XLSX.writeFile(wb, "Rekap_Kehadiran_Ngaji_Muradi.xlsx");
         }
     </script>
 </body>
