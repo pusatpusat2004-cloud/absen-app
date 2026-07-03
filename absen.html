@@ -151,7 +151,6 @@
 
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
-        // Path database diganti agar data tersimpan terpisah dari jadwal sebelumnya
         const dbRef = database.ref('rekap_jadwal_ngaji_wahid'); 
 
         const statusDiv = document.getElementById('sync-status');
@@ -163,12 +162,20 @@
             }
         });
 
-        // Fungsi parse angka yang mendukung pecahan 1/2 atau ½
+        // Fungsi parse angka yang mendukung pecahan setengah dan satu setengah
         function parseNilaiInput(val) {
-            val = val.trim().toLowerCase();
-            if (val === '1/2' || val === '½' || val === '0,5') {
+            val = val.trim().toLowerCase().replace(',', '.');
+            if (val === '') return 0;
+            
+            // Cek untuk variasi nilai 1.5
+            if (val === '1.5' || val === '1½' || val === '1 1/2') {
+                return 1.5;
+            }
+            // Cek untuk variasi nilai 0.5
+            if (val === '0.5' || val === '½' || val === '1/2') {
                 return 0.5;
             }
+            
             let parsed = parseFloat(val);
             return isNaN(parsed) ? 0 : parsed;
         }
@@ -181,7 +188,6 @@
                 for (let input of inputs) {
                     total += parseNilaiInput(input.value);
                 }
-                // Jika totalnya bilangan pecahan (ada koma), tampilkan apa adanya, jika bulat tampilkan normal
                 row.getElementsByClassName('total-cell')[0].textContent = total;
             }
         }
