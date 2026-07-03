@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jadwal Ngaji Almh. Ibu Amnih</title>
+    <title>Jadwal Ngaji Alm. Abdul Wahid</title>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
     
@@ -12,7 +12,7 @@
 
     <style>
         :root {
-            --primary-color: #1b5e20; /* Mengubah warna tema ke Hijau Islami cocok dengan logo */
+            --primary-color: #1b5e20; 
             --primary-light: #e8f5e9;
             --accent-color: #f57c00;
             --text-color: #333333;
@@ -37,7 +37,6 @@
             gap: 8px;
         }
         
-        /* Wadah Logo Bulat & Rapi */
         .logo-container {
             width: 90px;
             height: 90px;
@@ -52,7 +51,7 @@
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-            mix-blend-mode: multiply; /* Menghilangkan background warna muda bawaan gambar otomatis */
+            mix-blend-mode: multiply; 
         }
 
         header h1 { color: var(--primary-color); font-size: 22px; margin-bottom: 2px; }
@@ -98,7 +97,7 @@
 
     <div id="capture-area">
         <div class="table-card">
-            <div class="table-title" id="title-amnih">Jadwal Ngaji Rumah Almh. Ibu Amnih Binti H. Acing</div>
+            <div class="table-title" id="title-wahid">Jadwal Ngaji Rumah Alm. Abdul Wahid bin Mardais</div>
             <div class="table-responsive">
                 <table>
                     <thead>
@@ -113,32 +112,31 @@
                             <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th>
                         </tr>
                     </thead>
-                    <tbody id="table-amnih-body">
-                        <tr><td>1</td><td>18.00</td><td class="left-align">Alwi</td><td><input type="text" class="input-cell" id="amnih-1-1"></td><td><input type="text" class="input-cell" id="amnih-1-2"></td><td><input type="text" class="input-cell" id="amnih-1-3"></td><td><input type="text" class="input-cell" id="amnih-1-4"></td><td><input type="text" class="input-cell" id="amnih-1-5"></td><td><input type="text" class="input-cell" id="amnih-1-6"></td><td><input type="text" class="input-cell" id="amnih-1-7"></td><td class="total-cell">0</td></tr>
-                        <tr><td>2</td><td>19.00</td><td class="left-align">Riziq</td><td><input type="text" class="input-cell" id="amnih-2-1"></td><td><input type="text" class="input-cell" id="amnih-2-2"></td><td><input type="text" class="input-cell" id="amnih-2-3"></td><td><input type="text" class="input-cell" id="amnih-2-4"></td><td><input type="text" class="input-cell" id="amnih-2-5"></td><td><input type="text" class="input-cell" id="amnih-2-6"></td><td><input type="text" class="input-cell" id="amnih-2-7"></td><td class="total-cell">0</td></tr>
-                        <tr><td>3</td><td>20.00</td><td class="left-align">Sutrisna</td><td><input type="text" class="input-cell" id="amnih-3-1"></td><td><input type="text" class="input-cell" id="amnih-3-2"></td><td><input type="text" class="input-cell" id="amnih-3-3"></td><td><input type="text" class="input-cell" id="amnih-3-4"></td><td><input type="text" class="input-cell" id="amnih-3-5"></td><td><input type="text" class="input-cell" id="amnih-3-6"></td><td><input type="text" class="input-cell" id="amnih-3-7"></td><td class="total-cell">0</td></tr>
-                        <tr><td>4</td><td>21.00</td><td class="left-align">Mas'ud</td><td><input type="text" class="input-cell" id="amnih-4-1"></td><td><input type="text" class="input-cell" id="amnih-4-2"></td><td><input type="text" class="input-cell" id="amnih-4-3"></td><td><input type="text" class="input-cell" id="amnih-4-4"></td><td><input type="text" class="input-cell" id="amnih-4-5"></td><td><input type="text" class="input-cell" id="amnih-4-6"></td><td><input type="text" class="input-cell" id="amnih-4-7"></td><td class="total-cell">0</td></tr>
-                        <tr><td>5</td><td>22.00</td><td class="left-align">Baim</td><td><input type="text" class="input-cell" id="amnih-5-1"></td><td><input type="text" class="input-cell" id="amnih-5-2"></td><td><input type="text" class="input-cell" id="amnih-5-3"></td><td><input type="text" class="input-cell" id="amnih-5-4"></td><td><input type="text" class="input-cell" id="amnih-5-5"></td><td><input type="text" class="input-cell" id="amnih-5-6"></td><td><input type="text" class="input-cell" id="amnih-5-7"></td><td class="total-cell">0</td></tr>
-                        <tr><td>6</td><td>23.00</td><td class="left-align">Ust. Amil Eli</td><td><input type="text" class="input-cell" id="amnih-6-1"></td><td><input type="text" class="input-cell" id="amnih-6-2"></td><td><input type="text" class="input-cell" id="amnih-6-3"></td><td><input type="text" class="input-cell" id="amnih-6-4"></td><td><input type="text" class="input-cell" id="amnih-6-5"></td><td><input type="text" class="input-cell" id="amnih-6-6"></td><td><input type="text" class="input-cell" id="amnih-6-7"></td><td class="total-cell">0</td></tr>
-                        <tr><td>7</td><td>00.00</td><td class="left-align">Hafizh</td><td><input type="text" class="input-cell" id="amnih-7-1"></td><td><input type="text" class="input-cell" id="amnih-7-2"></td><td><input type="text" class="input-cell" id="amnih-7-3"></td><td><input type="text" class="input-cell" id="amnih-7-4"></td><td><input type="text" class="input-cell" id="amnih-7-5"></td><td><input type="text" class="input-cell" id="amnih-7-6"></td><td><input type="text" class="input-cell" id="amnih-7-7"></td><td class="total-cell">0</td></tr>
-                        <tr><td>8</td><td>01.00</td><td class="left-align">Syauqi</td><td><input type="text" class="input-cell" id="amnih-8-1"></td><td><input type="text" class="input-cell" id="amnih-8-2"></td><td><input type="text" class="input-cell" id="amnih-8-3"></td><td><input type="text" class="input-cell" id="amnih-8-4"></td><td><input type="text" class="input-cell" id="amnih-8-5"></td><td><input type="text" class="input-cell" id="amnih-8-6"></td><td><input type="text" class="input-cell" id="amnih-8-7"></td><td class="total-cell">0</td></tr>
-                        <tr><td>9</td><td>02.00</td><td class="left-align">Zuqi</td><td><input type="text" class="input-cell" id="amnih-9-1"></td><td><input type="text" class="input-cell" id="amnih-9-2"></td><td><input type="text" class="input-cell" id="amnih-9-3"></td><td><input type="text" class="input-cell" id="amnih-9-4"></td><td><input type="text" class="input-cell" id="amnih-9-5"></td><td><input type="text" class="input-cell" id="amnih-9-6"></td><td><input type="text" class="input-cell" id="amnih-9-7"></td><td class="total-cell">0</td></tr>
-                        <tr><td>10</td><td>03.00</td><td class="left-align">Fahri</td><td><input type="text" class="input-cell" id="amnih-10-1"></td><td><input type="text" class="input-cell" id="amnih-10-2"></td><td><input type="text" class="input-cell" id="amnih-10-3"></td><td><input type="text" class="input-cell" id="amnih-10-4"></td><td><input type="text" class="input-cell" id="amnih-10-5"></td><td><input type="text" class="input-cell" id="amnih-10-6"></td><td><input type="text" class="input-cell" id="amnih-10-7"></td><td class="total-cell">0</td></tr>
-                        <tr><td>11</td><td>04.00</td><td class="left-align">Arul</td><td><input type="text" class="input-cell" id="amnih-11-1"></td><td><input type="text" class="input-cell" id="amnih-11-2"></td><td><input type="text" class="input-cell" id="amnih-11-3"></td><td><input type="text" class="input-cell" id="amnih-11-4"></td><td><input type="text" class="input-cell" id="amnih-11-5"></td><td><input type="text" class="input-cell" id="amnih-11-6"></td><td><input type="text" class="input-cell" id="amnih-11-7"></td><td class="total-cell">0</td></tr>
-                        <tr><td>12</td><td>05.00</td><td class="left-align">Bg Adam</td><td><input type="text" class="input-cell" id="amnih-12-1"></td><td><input type="text" class="input-cell" id="amnih-12-2"></td><td><input type="text" class="input-cell" id="amnih-12-3"></td><td><input type="text" class="input-cell" id="amnih-12-4"></td><td><input type="text" class="input-cell" id="amnih-12-5"></td><td><input type="text" class="input-cell" id="amnih-12-6"></td><td><input type="text" class="input-cell" id="amnih-12-7"></td><td class="total-cell">0</td></tr>
+                    <tbody id="table-wahid-body">
+                        <tr><td>1</td><td>19.00</td><td class="left-align">Pak Mas'ud/Alwi</td><td><input type="text" class="input-cell" id="wahid-1-1"></td><td><input type="text" class="input-cell" id="wahid-1-2"></td><td><input type="text" class="input-cell" id="wahid-1-3"></td><td><input type="text" class="input-cell" id="wahid-1-4"></td><td><input type="text" class="input-cell" id="wahid-1-5"></td><td><input type="text" class="input-cell" id="wahid-1-6"></td><td><input type="text" class="input-cell" id="wahid-1-7"></td><td class="total-cell">0</td></tr>
+                        <tr><td>2</td><td>20.00</td><td class="left-align">Zamzami</td><td><input type="text" class="input-cell" id="wahid-2-1"></td><td><input type="text" class="input-cell" id="wahid-2-2"></td><td><input type="text" class="input-cell" id="wahid-2-3"></td><td><input type="text" class="input-cell" id="wahid-2-4"></td><td><input type="text" class="input-cell" id="wahid-2-5"></td><td><input type="text" class="input-cell" id="wahid-2-6"></td><td><input type="text" class="input-cell" id="wahid-2-7"></td><td class="total-cell">0</td></tr>
+                        <tr><td>3</td><td>21.00</td><td class="left-align">Sutrisna</td><td><input type="text" class="input-cell" id="wahid-3-1"></td><td><input type="text" class="input-cell" id="wahid-3-2"></td><td><input type="text" class="input-cell" id="wahid-3-3"></td><td><input type="text" class="input-cell" id="wahid-3-4"></td><td><input type="text" class="input-cell" id="wahid-3-5"></td><td><input type="text" class="input-cell" id="wahid-3-6"></td><td><input type="text" class="input-cell" id="wahid-3-7"></td><td class="total-cell">0</td></tr>
+                        <tr><td>4</td><td>22.00</td><td class="left-align">Fajri</td><td><input type="text" class="input-cell" id="wahid-4-1"></td><td><input type="text" class="input-cell" id="wahid-4-2"></td><td><input type="text" class="input-cell" id="wahid-4-3"></td><td><input type="text" class="input-cell" id="wahid-4-4"></td><td><input type="text" class="input-cell" id="wahid-4-5"></td><td><input type="text" class="input-cell" id="wahid-4-6"></td><td><input type="text" class="input-cell" id="wahid-4-7"></td><td class="total-cell">0</td></tr>
+                        <tr><td>5</td><td>23.00</td><td class="left-align">Baim</td><td><input type="text" class="input-cell" id="wahid-5-1"></td><td><input type="text" class="input-cell" id="wahid-5-2"></td><td><input type="text" class="input-cell" id="wahid-5-3"></td><td><input type="text" class="input-cell" id="wahid-5-4"></td><td><input type="text" class="input-cell" id="wahid-5-5"></td><td><input type="text" class="input-cell" id="wahid-5-6"></td><td><input type="text" class="input-cell" id="wahid-5-7"></td><td class="total-cell">0</td></tr>
+                        <tr><td>6</td><td>00.00</td><td class="left-align">Syauqi</td><td><input type="text" class="input-cell" id="wahid-6-1"></td><td><input type="text" class="input-cell" id="wahid-6-2"></td><td><input type="text" class="input-cell" id="wahid-6-3"></td><td><input type="text" class="input-cell" id="wahid-6-4"></td><td><input type="text" class="input-cell" id="wahid-6-5"></td><td><input type="text" class="input-cell" id="wahid-6-6"></td><td><input type="text" class="input-cell" id="wahid-6-7"></td><td class="total-cell">0</td></tr>
+                        <tr><td>7</td><td>01.00</td><td class="left-align">Ust. Abdul Mu'in</td><td><input type="text" class="input-cell" id="wahid-7-1"></td><td><input type="text" class="input-cell" id="wahid-7-2"></td><td><input type="text" class="input-cell" id="wahid-7-3"></td><td><input type="text" class="input-cell" id="wahid-7-4"></td><td><input type="text" class="input-cell" id="wahid-7-5"></td><td><input type="text" class="input-cell" id="wahid-7-6"></td><td><input type="text" class="input-cell" id="wahid-7-7"></td><td class="total-cell">0</td></tr>
+                        <tr><td>8</td><td>02.00</td><td class="left-align">Faiz</td><td><input type="text" class="input-cell" id="wahid-8-1"></td><td><input type="text" class="input-cell" id="wahid-8-2"></td><td><input type="text" class="input-cell" id="wahid-8-3"></td><td><input type="text" class="input-cell" id="wahid-8-4"></td><td><input type="text" class="input-cell" id="wahid-8-5"></td><td><input type="text" class="input-cell" id="wahid-8-6"></td><td><input type="text" class="input-cell" id="wahid-8-7"></td><td class="total-cell">0</td></tr>
+                        <tr><td>9</td><td>03.00</td><td class="left-align">Zuqi</td><td><input type="text" class="input-cell" id="wahid-9-1"></td><td><input type="text" class="input-cell" id="wahid-9-2"></td><td><input type="text" class="input-cell" id="wahid-9-3"></td><td><input type="text" class="input-cell" id="wahid-9-4"></td><td><input type="text" class="input-cell" id="wahid-9-5"></td><td><input type="text" class="input-cell" id="wahid-9-6"></td><td><input type="text" class="input-cell" id="wahid-9-7"></td><td class="total-cell">0</td></tr>
+                        <tr><td>10</td><td>04.00</td><td class="left-align">Amsor</td><td><input type="text" class="input-cell" id="wahid-10-1"></td><td><input type="text" class="input-cell" id="wahid-10-2"></td><td><input type="text" class="input-cell" id="wahid-10-3"></td><td><input type="text" class="input-cell" id="wahid-10-4"></td><td><input type="text" class="input-cell" id="wahid-10-5"></td><td><input type="text" class="input-cell" id="wahid-10-6"></td><td><input type="text" class="input-cell" id="wahid-10-7"></td><td class="total-cell">0</td></tr>
+                        <tr><td>11</td><td>05.00</td><td class="left-align">Adam</td><td><input type="text" class="input-cell" id="wahid-11-1"></td><td><input type="text" class="input-cell" id="wahid-11-2"></td><td><input type="text" class="input-cell" id="wahid-11-3"></td><td><input type="text" class="input-cell" id="wahid-11-4"></td><td><input type="text" class="input-cell" id="wahid-11-5"></td><td><input type="text" class="input-cell" id="wahid-11-6"></td><td><input type="text" class="input-cell" id="wahid-11-7"></td><td class="total-cell">0</td></tr>
                     </tbody>
                 </table>
             </div>
 
             <div class="badalan-section">
                 <div class="badalan-title">⚠️ Badalan</div>
-                <div class="badalan-row"><span>Ke - 1</span><input type="text" id="badalan-amnih-1" class="save-state" placeholder="Ketik waktu dan nama..."></div>
-                <div class="badalan-row"><span>Ke - 2</span><input type="text" id="badalan-amnih-2" class="save-state" placeholder="Ketik waktu dan nama..."></div>
-                <div class="badalan-row"><span>Ke - 3</span><input type="text" id="badalan-amnih-3" class="save-state" placeholder="Ketik waktu dan nama..."></div>
-                <div class="badalan-row"><span>Ke - 4</span><input type="text" id="badalan-amnih-4" class="save-state" placeholder="Ketik waktu dan nama..."></div>
-                <div class="badalan-row"><span>Ke - 5</span><input type="text" id="badalan-amnih-5" class="save-state" placeholder="Ketik waktu dan nama..."></div>
-                <div class="badalan-row"><span>Ke - 6</span><input type="text" id="badalan-amnih-6" class="save-state" placeholder="Ketik waktu dan nama..."></div>
-                <div class="badalan-row"><span>Ke - 7</span><input type="text" id="badalan-amnih-7" class="save-state" placeholder="Ketik waktu dan nama..."></div>
+                <div class="badalan-row"><span>Ke - 1</span><input type="text" id="badalan-wahid-1" class="save-state" placeholder="Ketik waktu dan nama..."></div>
+                <div class="badalan-row"><span>Ke - 2</span><input type="text" id="badalan-wahid-2" class="save-state" placeholder="Ketik waktu dan nama..."></div>
+                <div class="badalan-row"><span>Ke - 3</span><input type="text" id="badalan-wahid-3" class="save-state" placeholder="Ketik waktu dan nama..."></div>
+                <div class="badalan-row"><span>Ke - 4</span><input type="text" id="badalan-wahid-4" class="save-state" placeholder="Ketik waktu dan nama..."></div>
+                <div class="badalan-row"><span>Ke - 5</span><input type="text" id="badalan-wahid-5" class="save-state" placeholder="Ketik waktu dan nama..."></div>
+                <div class="badalan-row"><span>Ke - 6</span><input type="text" id="badalan-wahid-6" class="save-state" placeholder="Ketik waktu dan nama..."></div>
+                <div class="badalan-row"><span>Ke - 7</span><input type="text" id="badalan-wahid-7" class="save-state" placeholder="Ketik waktu dan nama..."></div>
             </div>
         </div>
     </div>
@@ -153,7 +151,8 @@
 
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
-        const dbRef = database.ref('rekap_jadwal_ngaji_amnih'); 
+        // Path database diganti agar data tersimpan terpisah dari jadwal sebelumnya
+        const dbRef = database.ref('rekap_jadwal_ngaji_wahid'); 
 
         const statusDiv = document.getElementById('sync-status');
         database.ref('.info/connected').on('value', function(snap) {
@@ -164,15 +163,25 @@
             }
         });
 
+        // Fungsi parse angka yang mendukung pecahan 1/2 atau ½
+        function parseNilaiInput(val) {
+            val = val.trim().toLowerCase();
+            if (val === '1/2' || val === '½' || val === '0,5') {
+                return 0.5;
+            }
+            let parsed = parseFloat(val);
+            return isNaN(parsed) ? 0 : parsed;
+        }
+
         function hitungSemuaTotal() {
-            const rows = document.getElementById('table-amnih-body').getElementsByTagName('tr');
+            const rows = document.getElementById('table-wahid-body').getElementsByTagName('tr');
             for (let row of rows) {
                 const inputs = row.getElementsByClassName('input-cell');
                 let total = 0;
                 for (let input of inputs) {
-                    let val = input.value.trim();
-                    if (!isNaN(val) && val !== '') total += parseInt(val);
+                    total += parseNilaiInput(input.value);
                 }
+                // Jika totalnya bilangan pecahan (ada koma), tampilkan apa adanya, jika bulat tampilkan normal
                 row.getElementsByClassName('total-cell')[0].textContent = total;
             }
         }
@@ -216,26 +225,26 @@
                 placeholders.forEach(item => { item.inp.style.display = ""; item.spn.parentNode.removeChild(item.spn); });
                 document.body.classList.remove('mode-cetak');
                 const link = document.createElement('a');
-                link.download = 'Rekap_Jadwal_Ngaji_Amnih.png'; link.href = canvas.toDataURL('image/png'); link.click();
+                link.download = 'Rekap_Jadwal_Ngaji_Wahid.png'; link.href = canvas.toDataURL('image/png'); link.click();
                 
-                let teksWA = "📝 *REKAPAN JADWAL NGAJI & BADALAN BARU*\n*(Rumah Almh. Ibu Amnih Binti H. Acing)*\n\nData diperbarui secara real-time.";
+                let teksWA = "📝 *REKAPAN JADWAL NGAJI & BADALAN BARU*\n*(Rumah Alm. Abdul Wahid bin Mardais)*\n\nData diperbarui secara real-time.";
                 window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(teksWA), '_blank');
             });
         }
 
         function downloadKeExcel() {
             let wb = XLSX.utils.book_new();
-            let dataAmnih = [[document.getElementById('title-amnih').textContent], [], ["No", "Waktu", "Nama", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "Total"]];
-            const rows = document.getElementById('table-amnih-body').getElementsByTagName('tr');
+            let dataWahid = [[document.getElementById('title-wahid').textContent], [], ["No", "Waktu", "Nama", "M1", "M2", "M3", "M4", "M5", "M6", "M7", "Total"]];
+            const rows = document.getElementById('table-wahid-body').getElementsByTagName('tr');
             for(let row of rows) {
                 let rowData = [row.cells[0].textContent, row.cells[1].textContent, row.cells[2].textContent];
                 let inputs = row.getElementsByClassName('input-cell');
                 for(let input of inputs) { rowData.push(input.value); }
                 rowData.push(row.querySelector('.total-cell').textContent);
-                dataAmnih.push(rowData);
+                dataWahid.push(rowData);
             }
-            XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(dataAmnih), "Ibu Amnih");
-            XLSX.writeFile(wb, "Rekap_Ngaji_Amnih.xlsx");
+            XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(dataWahid), "Abdul Wahid");
+            XLSX.writeFile(wb, "Rekap_Ngaji_Abdul_Wahid.xlsx");
         }
     </script>
 </body>
