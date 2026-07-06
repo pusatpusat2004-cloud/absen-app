@@ -162,22 +162,33 @@
             }
         });
 
-        // Fungsi parse angka yang mendukung pecahan setengah dan satu setengah
+        // Logika baru: Mendukung pecahan dinamis tak terbatas (0.5, 1.5, 2.5 ... sampai 10.5 dst)
         function parseNilaiInput(val) {
             val = val.trim().toLowerCase().replace(',', '.');
             if (val === '') return 0;
             
-            // Cek untuk variasi nilai 1.5
-            if (val === '1.5' || val === '1½' || val === '1 1/2') {
-                return 1.5;
-            }
-            // Cek untuk variasi nilai 0.5
-            if (val === '0.5' || val === '½' || val === '1/2') {
-                return 0.5;
+            let tambahanPecahan = 0;
+            
+            // Periksa jika teks mengandung akhiran khusus setengah bawaan '½' atau '1/2'
+            if (val.includes('½')) {
+                tambahanPecahan = 0.5;
+                val = val.replace('½', '').trim(); // Hapus simbol setengah untuk mengambil angka depannya
+            } else if (val.endsWith('1/2')) {
+                tambahanPecahan = 0.5;
+                val = val.substring(0, val.lastIndexOf('1/2')).trim(); // Hapus teks 1/2 untuk mengambil angka depannya
             }
             
-            let parsed = parseFloat(val);
-            return isNaN(parsed) ? 0 : parsed;
+            // Jika setelah dihapus teks pecahannya kolomnya kosong (seperti hanya mengetik "½" atau "1/2")
+            if (val === '') {
+                return tambahanPecahan;
+            }
+            
+            let angkaUtama = parseFloat(val);
+            if (isNaN(angkaUtama)) {
+                return tambahanPecahan > 0 ? tambahanPecahan : 0;
+            }
+            
+            return angkaUtama + tambahanPecahan;
         }
 
         function hitungSemuaTotal() {
