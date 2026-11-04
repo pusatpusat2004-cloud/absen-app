@@ -338,7 +338,7 @@
                 for (let input of inputs) {
                     let val = input.value.trim();
                     if (!isNaN(val) && val !== '') {
-                        total += parseInt(val);
+                        total += parseFloat(val);
                     }
                 }
                 const totalCell = row.getElementsByClassName('total-cell')[0];
