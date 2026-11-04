@@ -150,47 +150,6 @@
             background-color: #f8f9fa !important;
         }
 
-        .badalan-section {
-            margin-top: 10px;
-            border-top: 2px dashed #cccccc;
-            padding-top: 10px;
-        }
-
-        .badalan-title {
-            font-size: 13px;
-            font-weight: bold;
-            color: var(--accent-color);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-
-        .badalan-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 6px;
-            background: #fff8f2;
-            padding: 6px 10px;
-            border-radius: 6px;
-            border-left: 4px solid var(--accent-color);
-        }
-
-        .badalan-row span {
-            font-size: 12px;
-            min-width: 45px;
-            font-weight: 600;
-        }
-
-        .badalan-row input {
-            padding: 6px 10px;
-            font-size: 12px;
-            border: 1px solid #cccccc;
-            border-radius: 4px;
-            flex-grow: 1;
-            width: 100%;
-            background-color: #ffffff;
-        }
-
         .mode-cetak .table-responsive {
             overflow-x: visible !important;
             width: auto !important;
@@ -328,19 +287,7 @@
                 </table>
             </div>
 
-            <div class="badalan-section">
-                <div class="badalan-title">⚠️ Badalan</div>
-                <div class="badalan-row"><span>Ke - 1</span><input type="text" id="badalan-muradi-1" class="save-state" placeholder="Ketik waktu dan nama..."></div>
-                <div class="badalan-row"><span>Ke - 2</span><input type="text" id="badalan-muradi-2" class="save-state" placeholder="Ketik waktu dan nama..."></div>
-                <div class="badalan-row"><span>Ke - 3</span><input type="text" id="badalan-muradi-3" class="save-state" placeholder="Ketik waktu dan nama..."></div>
-                <div class="badalan-row"><span>Ke - 4</span><input type="text" id="badalan-muradi-4" class="save-state" placeholder="Ketik waktu dan nama..."></div>
-                <div class="badalan-row"><span>Ke - 5</span><input type="text" id="badalan-muradi-5" class="save-state" placeholder="Ketik waktu dan nama..."></div>
-                <div class="badalan-row"><span>Ke - 6</span><input type="text" id="badalan-muradi-6" class="save-state" placeholder="Ketik waktu dan nama..."></div>
-                <div class="badalan-row"><span>Ke - 7</span><input type="text" id="badalan-muradi-7" class="save-state" placeholder="Ketik waktu dan nama..."></div>
-            </div>
-
-            <!-- TEKS TAMBAHAN DI BAWAH BADALAN (bisa diubah) -->
-            <p style="margin-top: 12px; font-size: 12px; color: #555; text-align: left;">Catatan: Teks ini bisa diganti sesuai kebutuhan.</p>pppppppp
+            <p style="margin-top: 12px; font-size: 12px; color: #333; text-align: left; white-space: pre-line;">* Kepada santri yang mengajikan di harap datang 1jam sebelum ngajiin</p>
         </div>
     </div>
 
@@ -413,7 +360,7 @@
 
         // SIMPAN DATA REALTIME KETIKA DIKETIK
         document.addEventListener('input', function(e) {
-            if(e.target && (e.target.classList.contains('input-cell') || e.target.classList.contains('save-state'))) {
+            if(e.target && e.target.classList.contains('input-cell')) {
                 hitungSemuaTotal();
                 let updateData = {};
                 updateData[e.target.id] = e.target.value;
@@ -438,15 +385,7 @@
                 span.textContent = txt;
                 span.style.fontWeight = "bold";
                 span.style.fontSize = "13px";
-                
-                if(input.classList.contains('input-cell')) {
-                    span.style.color = "#2e7d32";
-                } else {
-                    span.style.color = "#333";
-                    span.style.display = "block";
-                    span.style.textAlign = "left";
-                    span.style.paddingLeft = "10px";
-                }
+                span.style.color = "#2e7d32";
                 
                 input.style.display = "none";
                 input.parentNode.appendChild(span);
@@ -473,7 +412,7 @@
 
                 alert("Gambar Berhasil Diunduh!");
 
-                let teksWA = "📝 *REKAPAN JADWAL NGAJI & BADALAN BARU*\n*(Rumah Alm. Bapak Gono)*\n\nData rekap kehadiran malam ini telah diperbarui otomatis. Silakan cek detail lengkap lewat link web atau gambar.";
+                let teksWA = "📝 *REKAPAN JADWAL NGAJI BARU*\n*(Rumah Alm. Bapak Gono)*\n\nData rekap kehadiran malam ini telah diperbarui otomatis. Silakan cek detail lengkap lewat link web atau gambar.";
                 window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(teksWA), '_blank');
             }).catch(err => {
                 console.error(err);
@@ -496,8 +435,6 @@
                 rowData.push(row.querySelector('.total-cell').textContent);
                 dataMuradi.push(rowData);
             }
-            dataMuradi.push([]); dataMuradi.push(["DATA BADALAN:"]);
-            for(let i=1; i<=4; i++) { dataMuradi.push([`Ke - ${i}`, "", document.getElementById(`badalan-muradi-${i}`).value]); }
             XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(dataMuradi), "Rumah Alm Muradi");
 
             XLSX.writeFile(wb, "Rekap_Kehadiran_Ngaji_Muradi.xlsx");
